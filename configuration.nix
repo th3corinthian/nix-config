@@ -8,8 +8,15 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./modules/rust.nix
-      ./modules/python.nix
+      
+      ./modules/languages/rust.nix
+      ./modules/languages/python.nix
+
+      ./modules/services/fonts.nix
+      ./modules/services/ssh.nix
+
+      ./modules/programs/gns3.nix
+      ./modules/programs/emulators.nix
     ];
   
   boot.initrd.kernelModules = [ "amdgpu" ];
@@ -87,7 +94,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -120,10 +127,7 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  
-  # Install NerdFonts
-  fonts.packages = with pkgs; [ nerdfonts ];
-  
+ 
   # enable D-Bus (required by udisks2)
   services.dbus.enable = true;
 
@@ -142,12 +146,11 @@
      neovim
      vim
      texmacs
-     vice
      go
      libgcc
      libgccjit
      godot_4
-     zed-editor
+     code-cursor
      blender
      libreoffice-qt6-fresh
      neofetch
@@ -161,10 +164,8 @@
      findutils
      tor
      tor-browser
-     torrenttools
      haskell-ci
      emacs
-     nerdfonts
      mu
      gcc
      clang
@@ -175,21 +176,15 @@
      openvpn
      zip
      unzip
-     gns3-gui
-     gns3-server
      gopls
-     xournal
-     xournalpp
      gimp-with-plugins
      librewolf
      wireguard-tools
      popsicle
      gcc
      gnumake
-     jupyter-all
      tmux
      zulu
-     wasm-pack
      dconf
      xwayland
      waybar
@@ -204,7 +199,7 @@
      discord
      mullvad-vpn
      nixd
-     dosbox
+     p7zip
   ];
 
   programs.steam.enable = true;
@@ -242,6 +237,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
+  system.stateVersion = "24.11"; # Did you read the comment?
 
 }
