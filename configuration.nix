@@ -11,9 +11,11 @@
       
       ./modules/languages/rust.nix
       ./modules/languages/python.nix
+      ./modules/languages/go.nix
+      ./modules/languages/haskell.nix
 
       ./modules/services/fonts.nix
-      ./modules/services/ssh.nix
+      #./modules/services/ssh.nix
 
       ./modules/programs/gns3.nix
       ./modules/programs/emulators.nix
@@ -146,7 +148,6 @@
      neovim
      vim
      texmacs
-     go
      libgcc
      libgccjit
      godot_4
@@ -164,7 +165,6 @@
      findutils
      tor
      tor-browser
-     haskell-ci
      emacs
      mu
      gcc
@@ -176,7 +176,6 @@
      openvpn
      zip
      unzip
-     gopls
      gimp-with-plugins
      librewolf
      wireguard-tools
