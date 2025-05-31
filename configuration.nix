@@ -199,6 +199,7 @@
      mullvad-vpn
      nixd
      p7zip
+     pdfstudioviewer
   ];
 
   programs.steam.enable = true;
