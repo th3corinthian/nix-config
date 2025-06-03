@@ -1,3 +1,4 @@
-
+*** My NixOS Config
 [[file:assets/cover.jpg]]
-#+html: <p align="center"><img src="assets/cover.jpg" alt="my logo"></p>
+
+
