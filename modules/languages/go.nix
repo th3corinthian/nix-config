@@ -3,7 +3,9 @@
 let 
   goTools = with pkgs; [
     go
-    gopls 
+    gopls
+    glibc.dev
+    glibc.static
   ];
 in {
   environment.systemPackages = goTools;

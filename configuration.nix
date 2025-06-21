@@ -209,9 +209,13 @@
 
   # Enable virtualbox
   virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableKvm = true;
+  virtualisation.virtualbox.host.addNetworkInterface = false;
+  
   
   services.redis.servers."talos".enable = true;
   services.redis.servers."talos".port 	= 6379;
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
