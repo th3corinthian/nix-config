@@ -19,6 +19,8 @@
 
       ./modules/programs/gns3.nix
       ./modules/programs/emulators.nix
+      ./modules/programs/android-tools.nix
+
     ];
   
   boot.initrd.kernelModules = [ "amdgpu" ];
