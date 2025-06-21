@@ -21,6 +21,7 @@
       ./modules/programs/emulators.nix
       ./modules/programs/android-tools.nix
       ./modules/programs/reverse-eng.nix
+      ./modules/programs/pwn.nix
     ];
   
   boot.initrd.kernelModules = [ "amdgpu" ];
