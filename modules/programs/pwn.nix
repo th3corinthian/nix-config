@@ -18,8 +18,6 @@ let
 	nikto
 	zap
 	openvas-scanner
-	openvas-smb
-	ospd-openvas
 	sqlmap
 	xrdp
 	tcpdump

@@ -13,6 +13,7 @@
       ./modules/languages/python.nix
       ./modules/languages/go.nix
       ./modules/languages/haskell.nix
+      ./modules/languages/js.nix
 
       ./modules/services/fonts.nix
       #./modules/services/ssh.nix
@@ -203,6 +204,8 @@
      nixd
      p7zip
      pdfstudioviewer
+     weechat
+     spotify
   ];
 
   programs.steam.enable = true;
