@@ -5,7 +5,7 @@
   options.picomConf.enable = lib.mkOption {
     type = lib.types.bool;
     default = false;
-    description = "enable base std sysutils (e.g. nvim, emacs, gcc)";
+    description = "enable picom";
   };
 
   config = lib.mkIf config.picomConf.enable {
