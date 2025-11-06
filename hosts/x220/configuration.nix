@@ -9,10 +9,12 @@
 	  ../../modules/sys/picom.nix
 	  ../../modules/sys/audio.nix
 
+	  ../../modules/net/mullvad.nix
+
       ../../modules/firejail/librewolf.nix
 
-      ../../modules/wine.nix
-      ../../modules/virt.nix
+      ../../modules/virt/wine.nix
+      ../../modules/virt/virt.nix
     ];
 
   boot.kernelModules = [ "kvm-intel" "kvm" "tap" "tun" "vhost_net" ];
@@ -26,23 +28,12 @@
   };
 
   networking.hostName = "nixos"; # Define your hostname.
-  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-  
-  systemd.services.mullvad-daemon.environment = {
-    TALPID_NET_CLS_MOUNT_DIR = "/run/net-cls-v1";
-  };
 
   systemd.enableCgroupAccounting = true;
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # the mole mutha fucka <O_O> 
-  services.mullvad-vpn.enable = true;
-  networking.iproute2.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -109,7 +100,6 @@
   	/* utils */
 	gparted
 	libreoffice
-	mullvad-vpn
     clamav
 	thunderbird
 	irssi
@@ -133,9 +123,10 @@
   sysUtils.enable = true;
   wineUtils.enable = true;
   virtUtils.enable = true;
+
   picomConf.enable = true;
   audioUtils.enable = true;
-
+  mullvadServices.enable = true;
   fireLibrewolf.enable = true;
 
   environment.variables.EDITOR = "neovim";

@@ -5,7 +5,7 @@
   options.audioUtils.enable = lib.mkOption {
     type = lib.types.bool;
     default = false;
-    description = "enable picom";
+    description = "enable audio/alsa utils";
   };
 
   config = lib.mkIf config.audioUtils.enable {
