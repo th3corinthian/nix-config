@@ -128,28 +128,11 @@
     };
   };
 
-#services.picom = {
-#enable = true;
-#backend = "glx";
-#vSync = true;
-#fade = true;
-#inactiveOpacity = 1.0;
-#activeOpacity = 1.0;
-#opacityRules = [
-#"85:class_g = 'Alacritty'"
-#"85:class_g = 'Emacs'"
-#"85:class_g = 'iaito'"
-#"85:class_g = 'librewolf'"
-#"85:class_g = 'st'"
-#];
-#};
-#services.pcscd.enable = true;
-
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
   };
-  #home-manager.users.corinthian = import ./home.nix;
+
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -203,6 +186,7 @@
   sysUtils.enable = true;
   wineUtils.enable = true;
   virtUtils.enable = true;
+  picomConf.enable = true;
 
   environment.variables.EDITOR = "neovim";
 
