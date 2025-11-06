@@ -126,7 +126,7 @@
 
   picomConf.enable = true;
   audioUtils.enable = true;
-  mullvadServices.enable = true;
+  mullvadService.enable = true;
   fireLibrewolf.enable = true;
 
   environment.variables.EDITOR = "neovim";
