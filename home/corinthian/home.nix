@@ -4,7 +4,6 @@
   imports = [
     ../../modules/suckless.nix
     ../../modules/fonts.nix
-    ../../modules/evil.nix
   ];
 
   home.username = "corinthian";
@@ -16,11 +15,6 @@
     xdg-utils
     feh
   ];
-
-  #programs.firefox.enable = true;
-  #programs.firefox.profiles.default.extensions = [
-    #pkgs.firefox-addons.ublock-origin
-  #];
 
   xsession = {
     enable = true;
