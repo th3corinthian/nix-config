@@ -5,7 +5,9 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
 
-      ../../modules/utils.nix
+      ../../modules/sys/utils.nix
+	  ../../modules/sys/picom.nix
+
       ../../modules/wine.nix
       ../../modules/virt.nix
     ];
@@ -126,22 +128,22 @@
     };
   };
 
-  services.picom = {
-    enable = true;
-    backend = "glx";
-    vSync = true;
-    fade = true;
-    inactiveOpacity = 1.0;
-    activeOpacity = 1.0;
-    opacityRules = [
-      "85:class_g = 'Alacritty'"
-      "85:class_g = 'Emacs'"
-      "85:class_g = 'iaito'"
-      "85:class_g = 'librewolf'"
-      "85:class_g = 'st'"
-    ];
-  };
-  services.pcscd.enable = true;
+#services.picom = {
+#enable = true;
+#backend = "glx";
+#vSync = true;
+#fade = true;
+#inactiveOpacity = 1.0;
+#activeOpacity = 1.0;
+#opacityRules = [
+#"85:class_g = 'Alacritty'"
+#"85:class_g = 'Emacs'"
+#"85:class_g = 'iaito'"
+#"85:class_g = 'librewolf'"
+#"85:class_g = 'st'"
+#];
+#};
+#services.pcscd.enable = true;
 
   programs.gnupg.agent = {
     enable = true;
