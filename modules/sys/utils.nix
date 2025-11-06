@@ -16,6 +16,7 @@
       tree-sitter
       git
       fd
+	  fzf
       bat
       curl
       broot

@@ -7,6 +7,7 @@
 
       ../../modules/sys/utils.nix
 	  ../../modules/sys/picom.nix
+	  ../../modules/sys/audio.nix
 
       ../../modules/firejail/librewolf.nix
 
@@ -81,19 +82,6 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  #services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-  };
-
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
@@ -119,22 +107,18 @@
   environment.systemPackages = with pkgs; [
 
   	/* utils */
-	alsa-utils
-	alsa-oss
 	gparted
 	libreoffice
-	docker
 	mullvad-vpn
     clamav
-	fzf
 	thunderbird
 	irssi
 	catgirl
 	qbittorrent
 	librewolf
-  obs-studio
-  keepass
-  nixos-generators
+    obs-studio
+    keepass
+    nixos-generators
 
 	# bulky heavy software, ewww
 	krita
@@ -143,28 +127,14 @@
 	discord
 	godot
 	_1password-gui
-  aseprite
-
-	/* languages */
-	lua
-	go
-	gopls
-	cargo
-	rustc
-	ruby
-	python313
-	python314
-	python313Packages.pip
-	zulu
-	powershell
-	dotnet-sdk
-  nodejs_24
+    aseprite
   ];
 
   sysUtils.enable = true;
   wineUtils.enable = true;
   virtUtils.enable = true;
   picomConf.enable = true;
+  audioUtils.enable = true;
 
   fireLibrewolf.enable = true;
 
