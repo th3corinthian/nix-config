@@ -8,6 +8,7 @@
       ../../modules/sys/utils.nix
 	  ../../modules/sys/picom.nix
 	  ../../modules/sys/audio.nix
+	  ../../modules/sys/clam.nix
 
 	  ../../modules/net/mullvad.nix
 
@@ -97,32 +98,32 @@
 
   environment.systemPackages = with pkgs; [
 
+    /* socials */
+    catgirl
+    irssi
+	discord
+    thunderbird
+
   	/* utils */
 	gparted
 	libreoffice
     clamav
 	thunderbird
-	irssi
-	catgirl
 	qbittorrent
-	librewolf
     obs-studio
     keepass
     nixos-generators
 
 	# bulky heavy software, ewww
-	krita
 	kdePackages.kdenlive
-	renoise
-	discord
 	godot
 	_1password-gui
-    aseprite
   ];
 
   sysUtils.enable = true;
   wineUtils.enable = true;
   virtUtils.enable = true;
+  clamTools.enable = true;
 
   picomConf.enable = true;
   audioUtils.enable = true;
@@ -130,9 +131,6 @@
   fireLibrewolf.enable = true;
 
   environment.variables.EDITOR = "neovim";
-
-  services.clamav.daemon.enable = true;
-  services.clamav.updater.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
