@@ -9,6 +9,7 @@
 
   config = lib.mkIf config.sysUtils.enable {
     environment.systemPackages = with pkgs; [
+      w3m
       wget
       ispell
       tts
@@ -16,10 +17,10 @@
       tree-sitter
       git
       fd
-	  fzf
+      fzf
       bat
       curl
-      broot
+      ranger
       fastfetch
       ripgrep
       tmux
