@@ -9,10 +9,12 @@
 
   config = lib.mkIf config.sysUtils.enable {
     environment.systemPackages = with pkgs; [
-      w3m
       wget
-      ispell
-      tts
+      cron
+      ispell 
+	  claude-code
+      bluetui
+	  tts
       espeak
       tree-sitter
       git
@@ -30,7 +32,7 @@
       sxhkd
       neovim
       emacs
-      gcc
+      tinycc
       alacritty
       plan9port
       mpv
