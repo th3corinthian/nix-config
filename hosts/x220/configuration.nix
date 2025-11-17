@@ -12,6 +12,7 @@
 	  ../../modules/sys/time.nix
 
 	  ../../modules/net/mullvad.nix
+      ../../modules/net/tor.nix
 
       ../../modules/firejail/librewolf.nix
 
@@ -111,7 +112,8 @@
   virtUtils.enable = true;
   clamTools.enable = true;
   defTime.enable = true;
-
+		
+  hiddenServices.enable = true;
   picomConf.enable = true;
   audioUtils.enable = true;
   mullvadService.enable = true;
