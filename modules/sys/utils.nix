@@ -56,6 +56,7 @@
       unetbootin
       tree
       keepass
+	  kdePackages.kleopatra
     ];
   };
 }

@@ -105,6 +105,7 @@
 	kdePackages.kdenlive
 	godot
 	_1password-gui
+
   ];
 
   sysUtils.enable = true;
