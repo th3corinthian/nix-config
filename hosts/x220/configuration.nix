@@ -6,18 +6,19 @@
       ./hardware-configuration.nix
 
       ../../modules/sys/utils.nix
-	  ../../modules/sys/picom.nix
-	  ../../modules/sys/audio.nix
-	  ../../modules/sys/clam.nix
-	  ../../modules/sys/time.nix
+      ../../modules/sys/picom.nix
+      ../../modules/sys/audio.nix
+      ../../modules/sys/clam.nix
+      ../../modules/sys/time.nix
 
-	  ../../modules/net/mullvad.nix
+      ../../modules/net/mullvad.nix
       ../../modules/net/tor.nix
 
       ../../modules/firejail/librewolf.nix
 
       ../../modules/virt/wine.nix
       ../../modules/virt/virt.nix
+      ../../modules/virt/android.nix
     ];
 
   boot.kernelModules = [ "kvm-intel" "kvm" "tap" "tun" "vhost_net" ];
@@ -110,6 +111,7 @@
 
   sysUtils.enable = true;
   wineUtils.enable = true;
+  androidUtils.enable = true;
   virtUtils.enable = true;
   clamTools.enable = true;
   defTime.enable = true;
