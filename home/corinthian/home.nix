@@ -20,7 +20,7 @@
     enable = true;
     windowManager.command = "dwm";
     initExtra = ''
-    feh --bg-fill ~/Documents/nix-config/assets/lain_sun.jpg &
+    feh --bg-fill ~/Documents/nix-config/assets/lain-6.jpg &
     '';
   };
 

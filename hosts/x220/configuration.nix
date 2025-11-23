@@ -78,6 +78,7 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+    pinentryPackage = pkgs.pinentry-curses;
   };
 
   # Allow unfree packages
@@ -89,17 +90,20 @@
     /* socials */
     catgirl
     irssi
-	discord
+    discord
     thunderbird
 
-  	/* utils */
-	gparted
-	libreoffice
+    /* utils */
+    gparted
+    libreoffice
     clamav
-	thunderbird
-	qbittorrent
+    thunderbird
+    qbittorrent
     obs-studio
     keepass
+    pass
+    gnupg
+    pinentry-curses
     nixos-generators
 
 	# bulky heavy software, ewww
