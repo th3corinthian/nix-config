@@ -17,11 +17,10 @@
       inactiveOpacity = 1.0;
       activeOpacity = 1.0;
       opacityRules = [
-        "85:class_g = 'Alacritty'"
-        "85:class_g = 'Emacs'"
-        "85:class_g = 'iaito'"
-        "85:class_g = 'librewolf'"
-        "85:class_g = 'st'"
+        "90:class_g = 'Alacritty'"
+        "90:class_g = 'Emacs'"
+        "90:class_g = 'iaito'"
+        "90:class_g = 'librewolf'"
       ];
     };
     services.pcscd.enable = true;
