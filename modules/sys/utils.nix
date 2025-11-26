@@ -14,7 +14,17 @@
       ispell 
 	  claude-code
       bluetui
-	  tts
+	    tts
+      docker
+      go
+      gopls
+      zulu24
+      python314
+      ruby
+      rustc
+      rustup
+      cargo
+      rust-analyzer
       espeak
       tree-sitter
       git

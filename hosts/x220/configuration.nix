@@ -95,6 +95,7 @@
 
     /* utils */
     gparted
+    anki
     libreoffice
     clamav
     thunderbird
