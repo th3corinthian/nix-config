@@ -92,6 +92,7 @@
     irssi
     discord
     thunderbird
+    burpsuite
 
     /* utils */
     gparted
