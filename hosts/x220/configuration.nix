@@ -17,7 +17,7 @@
       ../../modules/firejail/librewolf.nix
 
       ../../modules/virt/wine.nix
-      ../../modules/virt/virt.nix
+      #../../modules/virt/virt.nix
       ../../modules/virt/android.nix
     ];
 
@@ -37,7 +37,7 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  systemd.enableCgroupAccounting = true;
+  #systemd.enableCgroupAccounting = true;
 
 
   # Enable the X11 windowing system.
@@ -110,6 +110,7 @@
 
 	# bulky heavy software, ewww
 	kdePackages.kdenlive
+    audacity
 	godot
 	_1password-gui
 
@@ -118,7 +119,7 @@
   sysUtils.enable = true;
   wineUtils.enable = true;
   androidUtils.enable = true;
-  virtUtils.enable = true;
+  #virtUtils.enable = true;
   clamTools.enable = true;
   defTime.enable = true;
 		

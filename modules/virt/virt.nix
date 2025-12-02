@@ -10,13 +10,13 @@
 
  config = lib.mkIf config.sysUtils.enable {
 
-    virtualisation.lxd.enable = true;
-    virtualisation.lxc.enable = true;
-    virtualisation.lxc.lxcfs.enable = true;
+    #virtualisation.lxd.enable = true;
+    #virtualisation.lxc.enable = true;
+    #virtualisation.lxc.lxcfs.enable = true;
     
-    systemd.services.lxd.serviceConfig = {
-      Delegate = true;
-    };
+    #systemd.services.lxd.serviceConfig = {
+      #Delegate = true;
+    #};
 
     virtualisation.libvirtd = {
       enable = true;

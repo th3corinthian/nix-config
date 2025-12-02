@@ -18,7 +18,6 @@
       docker
       go
       gopls
-      zulu24
       python314
       ruby
       rustc

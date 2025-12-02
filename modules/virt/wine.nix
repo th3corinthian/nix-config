@@ -11,6 +11,9 @@
     environment.systemPackages = with pkgs; [
       wineWowPackages.stable    # 64+32-bit Wine build
       winetricks
+
+      duckstation
+      pcsx2
       #cabextract                # winetricks helper
       # optional helpers:
       #lutris                    # if you like GUIs for Wine

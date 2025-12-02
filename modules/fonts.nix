@@ -66,7 +66,7 @@
    nerd-fonts.ubuntu-mono
    nerd-fonts.ubuntu-sans
    nerd-fonts.victor-mono
-   noto-fonts-emoji
+   noto-fonts-color-emoji
    noto-fonts
   ];
 }
