@@ -39,7 +39,6 @@
 
   #systemd.enableCgroupAccounting = true;
 
-
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
@@ -108,11 +107,11 @@
     pinentry-curses
     nixos-generators
 
-	# bulky heavy software, ewww
-	kdePackages.kdenlive
+    # bulky heavy software, ewww
+    kdePackages.kdenlive
     audacity
-	godot
-	_1password-gui
+    godot
+    _1password-gui
 
   ];
 
