@@ -5,6 +5,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
 
+      ../../modules/firefox.nix
+
       ../../modules/sys/utils.nix
       ../../modules/sys/picom.nix
       ../../modules/sys/audio.nix
@@ -127,6 +129,7 @@
   audioUtils.enable = true;
   mullvadService.enable = true;
   fireLibrewolf.enable = true;
+  firefox.enable = true;
 
   environment.variables.EDITOR = "neovim";
 
