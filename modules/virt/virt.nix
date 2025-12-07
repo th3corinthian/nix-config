@@ -10,13 +10,6 @@
 
  config = lib.mkIf config.sysUtils.enable {
 
-    #virtualisation.lxd.enable = true;
-    #virtualisation.lxc.enable = true;
-    #virtualisation.lxc.lxcfs.enable = true;
-    
-    #systemd.services.lxd.serviceConfig = {
-      #Delegate = true;
-    #};
    virtualisation.docker = {
      enable = true; # The main daemon must be enabled
      rootless = {
