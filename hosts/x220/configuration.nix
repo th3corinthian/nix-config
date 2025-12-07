@@ -66,19 +66,6 @@
 
   hardware.bluetooth.enable = true;
 
-  virtualisation.docker = {
-    enable = true;
-    daemon.settings = {
-    experimental = true;
-    default-address-pools = [
-      {
-        base = "172.30.0.0/16";
-        size = 24;
-      }
-    ];
-  };
-  };
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.corinthian = {
     isNormalUser = true;
