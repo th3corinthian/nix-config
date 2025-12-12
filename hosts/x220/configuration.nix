@@ -113,6 +113,7 @@
     gnupg
     pinentry-curses
     nixos-generators
+    usbutils
 
     # bulky heavy software, ewww
     kdePackages.kdenlive

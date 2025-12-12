@@ -19,6 +19,8 @@
       go
       gopls
       python314
+      remmina
+      syncthing
       ruby
       rustc
       rustup
