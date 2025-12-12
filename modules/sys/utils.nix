@@ -9,6 +9,8 @@
 
   config = lib.mkIf config.sysUtils.enable {
     environment.systemPackages = with pkgs; [
+      pnpm
+      nodejs_24
       wget
       cron
       ispell 
