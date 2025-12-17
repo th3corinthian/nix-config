@@ -101,6 +101,7 @@
     protonmail-bridge
     thunderbird
     burpsuite
+    veracrypt
 
     maltego
     javaPackages.compiler.openjdk21
