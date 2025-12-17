@@ -3,6 +3,11 @@
 {
   imports =
     [ # Include the results of the hardware scan.
+
+      #(builtins.fetchTarball {
+        #url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/nixos-25.11/nixos-mailserver-nixos-25.11.tar.gz";
+      #})
+
       ./hardware-configuration.nix
 
       ../../modules/firefox.nix
@@ -20,6 +25,7 @@
 
       ../../modules/virt/wine.nix
       #../../modules/virt/virt.nix
+      ../../modules/virtualization/podman.nix
       ../../modules/virt/android.nix
     ];
 
@@ -70,7 +76,7 @@
   users.users.corinthian = {
     isNormalUser = true;
     description = "corinthian";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "kvm" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "kvm" "docker" "podman" ];
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -92,6 +98,7 @@
     catgirl
     irssi
     discord
+    protonmail-bridge
     thunderbird
     burpsuite
 
@@ -129,6 +136,7 @@
   #virtUtils.enable = true;
   clamTools.enable = true;
   defTime.enable = true;
+  podMan.enable = true;
 		
   hiddenServices.enable = true;
   picomConf.enable = true;
