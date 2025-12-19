@@ -24,7 +24,7 @@
       ../../modules/firejail/librewolf.nix
 
       ../../modules/virt/wine.nix
-      #../../modules/virt/virt.nix
+      ../../modules/virt/virt.nix
       ../../modules/virtualization/podman.nix
       ../../modules/virt/android.nix
     ];
@@ -40,6 +40,30 @@
   };
 
   networking.hostName = "nixos"; # Define your hostname.
+
+  services.tor = {
+    enable = true;
+    # Default SOCKS port is 9050, accessible locally [3].
+  };
+
+  programs.proxychains = {
+    enable = true;
+    # Use the default Tor SOCKS proxy on 9050 [3].
+    # Configure chain type (dynamic_chain is common for Tor) [9, 10].
+    # Default options usually point to Tor [3, 9, 10].
+    # Example to force DNS over proxy:
+    proxies.prx1.enable = true;
+    proxies.prx1.type = "socks5";
+    proxies.prx1.host = "127.0.0.1";
+    proxies.prx1.port = 9050;
+    proxyDNS = true;
+    # Example custom config (if needed, overrides defaults):
+    #extraConfig = ''
+       #dynamic_chain
+       #socks5 127.0.0.1 9050 # Usually defaults to this for Tor
+     #'';
+  };
+
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -101,7 +125,11 @@
     protonmail-bridge
     thunderbird
     burpsuite
+    cryptsetup
     veracrypt
+    lsof
+    proxychains-ng
+    proxychains
 
     maltego
     javaPackages.compiler.openjdk21
@@ -134,7 +162,7 @@
   sysUtils.enable = true;
   wineUtils.enable = true;
   androidUtils.enable = true;
-  #virtUtils.enable = true;
+  virtUtils.enable = true;
   clamTools.enable = true;
   defTime.enable = true;
   podMan.enable = true;
