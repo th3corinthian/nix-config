@@ -52,10 +52,12 @@
     # Configure chain type (dynamic_chain is common for Tor) [9, 10].
     # Default options usually point to Tor [3, 9, 10].
     # Example to force DNS over proxy:
-    proxies.prx1.enable = true;
-    proxies.prx1.type = "socks5";
-    proxies.prx1.host = "127.0.0.1";
-    proxies.prx1.port = 9050;
+    proxies.prx1 = {
+      type = "socks5";
+      host = "127.0.0.1";
+      port = 9050;
+    };
+
     proxyDNS = true;
     # Example custom config (if needed, overrides defaults):
     #extraConfig = ''
