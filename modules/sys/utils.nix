@@ -13,8 +13,7 @@
       nodejs_24
       wget
       cron
-      ispell 
-	  claude-code
+      ispell
       bluetui
 	    tts
       docker
