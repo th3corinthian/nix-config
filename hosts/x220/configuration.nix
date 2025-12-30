@@ -168,7 +168,6 @@
   clamTools.enable = true;
   defTime.enable = true;
   podMan.enable = true;
-		
   hiddenServices.enable = true;
   picomConf.enable = true;
   audioUtils.enable = true;
@@ -186,12 +185,23 @@
   #   enableSSHSupport = true;
   # };
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    #extraConfig = "
+      #Host nixos-desktop
+           #Hostname 192.168.1.84
+           #Port     5432
+           #User     corinthian
+
+           #IdentitiesOnly  yes
+           #IdentityFile    ~/.ssh/nixos-desktop
+    #";
+  };
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 443 80 9050 9150 ];
+  networking.firewall.allowedTCPPorts = [ 443 80 9050 9150 5432 ];
   #networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }
