@@ -25,7 +25,8 @@
 
       ../../modules/virt/wine.nix
       ../../modules/virt/virt.nix
-      ../../modules/virtualization/podman.nix
+
+      ../../modules/virtualization/docker.nix
       ../../modules/virt/android.nix
     ];
 
@@ -136,6 +137,7 @@
     maltego
     javaPackages.compiler.openjdk21
     jdk8_headless
+    compose2nix
 
 
     /* utils */
@@ -167,7 +169,7 @@
   virtUtils.enable = true;
   clamTools.enable = true;
   defTime.enable = true;
-  podMan.enable = true;
+  dockerServices.enable = true;
   hiddenServices.enable = true;
   picomConf.enable = true;
   audioUtils.enable = true;
