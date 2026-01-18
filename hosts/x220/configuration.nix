@@ -81,29 +81,16 @@
     xmonad = {
       enable = true;
       enableContribAndExtras = true;
-      extraPackages = haskellPackages: [
-        haskellPackages.dbus
-        haskellPackages.List
-        haskellPackages.monad-logger
+      extraPackages = hpkgs: [
+        hpkgs.dbus
+        hpkgs.List
+        hpkgs.monad-logger
+        hpkgs.xmobar
       ];
-      #flake = {
-	#enable = true;
-	#compiler = "ghc947";
-      #};
-      config = builtins.readFile ./config/xmonad/xmonad.hs;
+      config = builtins.readFile ../../config/xmonad/xmonad.hs;
       enableConfiguredRecompile = true;
     };
-    #displayManager.defaultSession = "none+xmonad";
   };
-
-  # enable dwm
-  #services.displayManager.ly.enable = true;
-  #services.xserver.windowManager.dwm = {
-    #enable = true;
-    #package = pkgs.dwm.overrideAttrs {
-    #  src = ../../config/dwm;
-    #};
-  #};
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -186,6 +173,11 @@
 
     cheat
     pet
+
+    haskellPackages.xmonad
+    haskellPackages.xmonad-contrib
+    haskellPackages.xmonad-extras
+    haskellPackages.xmobar
 
   ];
 
