@@ -34,13 +34,13 @@
     };
   };
 
-  xsession = {
-    enable = true;
-    windowManager.command = "dwm";
-    initExtra = ''
-    feh --bg-fill ~/Documents/prog/nix/nix-config/assets/lain-6.jpg &
-    '';
-  };
+  #xsession = {
+    #enable = true;
+    #windowManager.command = "dwm";
+    #initExtra = ''
+    #feh --bg-fill ~/Documents/prog/nix/nix-config/assets/lain-6.jpg &
+    #'';
+  #};
 
   xdg.mimeApps.enable = true;
   xdg.mimeApps.defaultApplications = {

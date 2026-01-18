@@ -1,5 +1,5 @@
 {
-  description = "x220 flake";
+  description = "infra-monorepo flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -11,6 +11,8 @@
 
     compose2nix.url = "github:aksiksi/compose2nix";
     compose2nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    xmonad-contrib.url = "github:xmonad/xmonad-contrib";
   };
 
   outputs = { self, nixpkgs, sops-nix, home-manager, ... }@inputs:

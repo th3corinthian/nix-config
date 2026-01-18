@@ -77,14 +77,33 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # enable dwm
-  services.displayManager.ly.enable = true;
-  services.xserver.windowManager.dwm = {
-    enable = true;
-    package = pkgs.dwm.overrideAttrs {
-      src = ../../config/dwm;
+  services.xserver.windowManager = {
+    xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+      extraPackages = haskellPackages: [
+        haskellPackages.dbus
+        haskellPackages.List
+        haskellPackages.monad-logger
+      ];
+      #flake = {
+	#enable = true;
+	#compiler = "ghc947";
+      #};
+      config = builtins.readFile ./config/xmonad/xmonad.hs;
+      enableConfiguredRecompile = true;
     };
+    #displayManager.defaultSession = "none+xmonad";
   };
+
+  # enable dwm
+  #services.displayManager.ly.enable = true;
+  #services.xserver.windowManager.dwm = {
+    #enable = true;
+    #package = pkgs.dwm.overrideAttrs {
+    #  src = ../../config/dwm;
+    #};
+  #};
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -154,12 +173,19 @@
     pinentry-curses
     nixos-generators
     usbutils
+    unrar
+
+    monero-cli
 
     # bulky heavy software, ewww
     kdePackages.kdenlive
     audacity
     godot
+    openvpn
     _1password-gui
+
+    cheat
+    pet
 
   ];
 
