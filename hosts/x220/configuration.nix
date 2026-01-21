@@ -67,6 +67,7 @@
      #'';
   };
 
+  programs.dconf.enable = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -91,6 +92,10 @@
       enableConfiguredRecompile = true;
     };
   };
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "libsoup-2.74.3"
+  ];
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -123,6 +128,7 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowBroken = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   environment.systemPackages = with pkgs; [
@@ -140,11 +146,20 @@
     proxychains-ng
     proxychains
 
+    gsettings-desktop-schemas
+    gtk2
+    glib
+    emacs
+
+    surf
+    libsoup_3
+    webkitgtk_6_0
+    webkitgtk_4_1
+
     maltego
     javaPackages.compiler.openjdk21
     jdk8_headless
     compose2nix
-
 
     /* utils */
     gparted
@@ -161,6 +176,7 @@
     nixos-generators
     usbutils
     unrar
+
 
     monero-cli
 

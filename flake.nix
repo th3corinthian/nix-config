@@ -15,7 +15,7 @@
     xmonad-contrib.url = "github:xmonad/xmonad-contrib";
   };
 
-  outputs = { self, nixpkgs, sops-nix, xmonad-contrib, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, sops-nix, home-manager, ... }@inputs:
   let
     system = "x86_64-linux";
   in {
@@ -27,7 +27,7 @@
         ./hosts/x220/configuration.nix
         sops-nix.nixosModules.sops
         home-manager.nixosModules.home-manager
-        xmonad-contrib.nixosModules.default
+        #xmonad-contrib.nixosModules.default
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;

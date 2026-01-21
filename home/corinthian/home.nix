@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ../../modules/suckless.nix
     ../../modules/fonts.nix
   ];
 

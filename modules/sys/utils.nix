@@ -43,7 +43,6 @@
       libressl
       sxhkd
       neovim
-      emacs
       tinycc
       alacritty
       plan9port
