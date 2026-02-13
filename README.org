@@ -1,0 +1,7 @@
+#+TITLE: My NixOS Config
+#+AUTHOR: Corinthian
+#+DESCRIPTION: My evolving NixOS config for all my machines.
+
+[[file:assets/cover.jpg]]
+
+
