@@ -6,3 +6,5 @@
 
 
 /"The wired might actually be thought of as a highly advanced upper layer of the real world. In other words, physical reality is nothing but an illusion, a hologram of the information that flows to us through the wired."/
+
+file:assets/diagram.png
