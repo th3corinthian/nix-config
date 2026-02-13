@@ -8,23 +8,11 @@
 /"The wired might actually be thought of as a highly advanced upper layer of the real world. In other words, physical reality is nothing but an illusion, a hologram of the information that flows to us through the wired."/
 
 #+BEGIN_SRC bash
-$ nix flake show github:th3corinthian/nix-config
-├───apps
-│   └───x86_64-linux
-│       └───nix: app
-├───homeConfigurations
-│   ├───hyprland-edp: Home Manager configuration [home-manager-generation]
-│   ├───hyprland-hdmi: Home Manager configuration [home-manager-generation]
-│   ├───hyprland-hdmi-mutable: Home Manager configuration [home-manager-generation]
-│   ├───xmonad-edp: Home Manager configuration [home-manager-generation]
-│   └───xmonad-hdmi: Home Manager configuration [home-manager-generation]
+├───homeConfigurations: unknown
 ├───nixosConfigurations
-│   ├───thinkpad-x220: NixOS configuration [nixos-system-thinkpad-x1-24.11.20240620.d603719]
-│   ├───fang-amd: NixOS configuration [nixos-system-thinkpad-x1-24.11.20240620.d603719]
-│   └───xmod: NixOS configuration [nixos-system-tongfang-amd-24.11.20240620.d603719]
-├───out
-│   ├───overlays: custom instance to be used by consumers of this flake
-│   └───pkgs: custom instance to be used by consumers of this flake
-└───packages
-    └───x86_64-linux
+│   ├───thinkpad-t60p: NixOS configuration
+│   ├───thinkpad-x220: NixOS configuration
+│   └───tongfang-amd: NixOS configuration
+├───out: unknown
+└───schemas: unknown
 #+END_SRC
