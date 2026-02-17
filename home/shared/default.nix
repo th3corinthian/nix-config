@@ -40,17 +40,21 @@ let
     xsel # clipboard support (also for neovim)
     zip # compress files
     nodejs_24
+
+    openroad
+    kicad
+
   ] ++ (pkgs.sxm.scripts or [ ]);
 in
 {
   programs.home-manager.enable = true;
 
-  #imports = lib.concatMap import [
+  imports = lib.concatMap import [
     #../modules
     #../themes
-    #./programs.nix
-    #./services.nix
-  #];
+    ./programs.nix
+    ./services.nix
+  ];
 
   xdg = {
     inherit configHome;

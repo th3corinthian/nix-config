@@ -1,84 +1,84 @@
-{ pkgs, lib, ... }:
-
 let
-  username = "corinthian";
-  homeDirectory = "/home/${username}";
-  configHome = "${homeDirectory}/.config";
+  more = { pkgs, ... }: {
+    programs = {
+      bat.enable = true;
 
-  packages = with pkgs; [
-    any-nix-shell # fish support for nix shell
-    audacious # simple music player
-    bazecor # configuration software for the dygma defy keyboard
-    bottom # alternative to htop & ytop
-    dig # dns command-line tool
-    docker-compose # docker manager
-    duf # disk usage/free utility
-    eza # a better `ls`
-    fd # "find" for files
-    gimp # gnu image manipulation program
-    hyperfine # command-line benchmarking tool
-    insomnia # rest client with graphql support
-    jmtpfs # mount mtp devices
-    killall # kill processes by name
-    libreoffice # office suite
-    lnav # log file navigator on the terminal
-    md-toc # # generate ToC in markdown files
-    ncdu # disk space info (a better du)
-    nitch # minimal system information fetch
-    nix-output-monitor # nom: monitor nix commands
-    nix-search # faster nix search client
-    nyancat # the famous rainbow cat!
-    ripgrep # fast grep
-    socat # multipurpose relay (SOcket CAT)
-    systemctl-tui # manage systemctl services and their logs
-    telegram-desktop # telegram messaging client
-    tree # display files in a tree view
-    tmux
-    unzip # uncompress files
-    vlc # media player
-    xsel # clipboard support (also for neovim)
-    zip # compress files
-  ] ++ (pkgs.sxm.scripts or [ ]);
+      broot = {
+        enable = true;
+        enableFishIntegration = true;
+      };
+
+      direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+      };
+
+      fzf = {
+        enable = true;
+        enableFishIntegration = false; # broken
+        defaultCommand = "fd --type file --follow"; # FZF_DEFAULT_COMMAND
+        defaultOptions = [ "--height 20%" ]; # FZF_DEFAULT_OPTS
+        fileWidgetCommand = "fd --type file --follow"; # FZF_CTRL_T_COMMAND
+      };
+
+      gpg.enable = true;
+
+      htop = {
+        enable = true;
+        settings = {
+          sort_direction = true;
+          sort_key = "PERCENT_CPU";
+        };
+      };
+
+      jq.enable = true;
+
+      # generate index with: nix-index --filter-prefix '/bin/'
+      nix-index-fork = {
+        enable = true;
+        enableFishIntegration = true;
+        enableNixCommand = true;
+        database = pkgs.nix-index-small-database;
+      };
+      # command-not-found only works with channels
+      command-not-found.enable = false;
+
+      obs-studio = {
+        enable = false;
+        plugins = [ ];
+      };
+
+      ssh = {
+        enable = true;
+        enableDefaultConfig = false;
+        matchBlocks."*" = {
+          forwardAgent = false;
+          addKeysToAgent = "no";
+          compression = false;
+          serverAliveInterval = 0;
+          serverAliveCountMax = 3;
+          hashKnownHosts = false;
+          userKnownHostsFile = "~/.ssh/known_hosts";
+          controlMaster = "no";
+          controlPath = "~/.ssh/master-%r@%n:%p";
+          controlPersist = "no";
+        };
+      };
+      #services.fail2ban.enable = true;
+
+      zoxide = {
+        enable = true;
+        enableFishIntegration = true;
+        options = [ ];
+      };
+    };
+  };
 in
-{
-  programs.home-manager.enable = true;
-
-  #imports = lib.concatMap import [
-    #../modules
-    #../themes
-    #./programs.nix
-    #./services.nix
-  #];
-
-  xdg = {
-    inherit configHome;
-    enable = true;
-  };
-
-  home = {
-    inherit username homeDirectory packages;
-
-    changes-report.enable = true;
-
-    #sessionVariables = {
-      #BROWSER = "${lib.exe pkgs.firefox-beta}";
-      #DISPLAY = ":0";
-      #EDITOR = "nvim";
-      # https://github.com/NixOS/nixpkgs/issues/24311#issuecomment-980477051
-      #GIT_ASKPASS = "";
-    #};
-  };
-
-  # garbage collection
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 7d";
-  };
-
-  # restart the corresponding systemd services on change
-  systemd.user.startServices = "sd-switch";
-
-  # notifications about home-manager news
-  news.display = "silent";
-}
+[
+  ../programs/git
+  #../programs/firefox
+  ../programs/fish
+  #../programs/neofetch
+  ../programs/ngrok
+  more
+]
