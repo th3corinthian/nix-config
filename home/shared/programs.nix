@@ -34,12 +34,12 @@ let
       jq.enable = true;
 
       # generate index with: nix-index --filter-prefix '/bin/'
-      nix-index-fork = {
-        enable = true;
-        enableFishIntegration = true;
-        enableNixCommand = true;
-        database = pkgs.nix-index-small-database;
-      };
+      #nix-index-fork = {
+        #enable = true;
+        #enableFishIntegration = true;
+        #enableNixCommand = true;
+        #database = pkgs.nix-index-small-database;
+      #};
       # command-not-found only works with channels
       command-not-found.enable = false;
 
@@ -57,13 +57,23 @@ let
           compression = false;
           serverAliveInterval = 0;
           serverAliveCountMax = 3;
-          hashKnownHosts = false;
+          hashKnownHosts = true;
           userKnownHostsFile = "~/.ssh/known_hosts";
           controlMaster = "no";
           controlPath = "~/.ssh/master-%r@%n:%p";
           controlPersist = "no";
         };
+        extraConfig = "
+          Host nixos-desktop
+               Hostname 192.168.1.84
+               Port 5432
+               User corinthian
+
+               IdentitiesOnly  yes
+               IdentityFile    ~/.ssh/nixos-desktop
+               ";
       };
+
       #services.fail2ban.enable = true;
 
       zoxide = {

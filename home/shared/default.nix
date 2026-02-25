@@ -39,10 +39,18 @@ let
     vlc # media player
     xsel # clipboard support (also for neovim)
     zip # compress files
-    nodejs_24
 
+    nodejs_24
+    tor-browser
     openroad
     kicad
+    rtorrent
+    maltego
+    #surf
+    #webkitgtk
+    chromium
+    wechat-uos
+    kitty
 
   ] ++ (pkgs.sxm.scripts or [ ]);
 in

@@ -13,13 +13,10 @@ let
 
   overlays = f: p: {
     inherit (inputs.cowsay.packages.${system}) cowsay;
-    inherit (inputs) fish-bobthefish-theme fish-keytool-completions;
+    #inherit (inputs) fish-bobthefish-theme fish-keytool-completions;
     inherit (inputs.snitch.packages.${system}) snitch;
 
     #inherit (inputs.nix-index-database.packages.${system}) nix-index-database nix-index-small-database;
-
-    # globalprotect vpn overlay for no-longer supported package
-    inherit (inputs.nixpkgs-gp.legacyPackages.${system}) globalprotect-openconnect;
 
     inherit (inputs.nixpkgs-hyprland.legacyPackages.${system}) hyprland;
 

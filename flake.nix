@@ -108,7 +108,11 @@
       inherit overlays system;
       config = {
         allowUnfree = true;
-        contentAddressedByDefault = false;
+        #allowBroken = true;
+        #permittedInsecurePackages = [
+          #"libsoup-2.74.3"
+        #];
+        #contentAddressedByDefault = false;
       };
     };
   in

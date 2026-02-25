@@ -11,6 +11,9 @@ let
   ];
 
   myfonts = pkgs.callPackage fonts/default.nix { inherit pkgs; };
+
+  #nixpkgs.config.allowBroken = true;
+  #nixpkgs.config.allowUnsupportedSystem = true;
 in
 {
   # CVE: https://discourse.nixos.org/t/newly-announced-vulnerabilities-in-cups/52771
@@ -22,10 +25,6 @@ in
     # Enables wireless support and openvpn via network manager.
     networkmanager = {
       enable = true;
-      plugins = with pkgs; [
-        networkmanager-openvpn
-        networkmanager-openconnect
-      ];
     };
 
     # The global useDHCP flag is deprecated, therefore explicitly set to false here.
@@ -74,8 +73,6 @@ in
     enableSSHSupport = true;
   };
 
-
-
   # List services that you want to enable:
 
   # Open ports in the firewall.
@@ -101,15 +98,6 @@ in
   users.extraGroups.vboxusers.members = [ "corinthian" ];
 
   security.rtkit.enable = true;
-
-  # Scanner backend
-  #hardware.sane = {
-    #enable = true;
-    #extraBackends = with pkgs; [
-      #epkowa
-      #sane-airscan
-    #];
-  #};
 
   services = {
     # Network scanners

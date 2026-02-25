@@ -3,7 +3,7 @@
 let
   ngrokConfig = lib.generators.toYAML { } {
     version = 2;
-    authtoken = config.secrets.ngrokToken;
+    #authtoken = config.secrets.ngrokToken;
   };
 in
 {
