@@ -8,6 +8,7 @@ let
   packages = with pkgs; [
     any-nix-shell # fish support for nix shell
     audacious # simple music player
+    alsa-utils
     bazecor # configuration software for the dygma defy keyboard
     bottom # alternative to htop & ytop
     dig # dns command-line tool
@@ -42,7 +43,6 @@ let
 
     nodejs_24
     tor-browser
-    openroad
     kicad
     rtorrent
     maltego

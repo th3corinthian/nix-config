@@ -108,7 +108,7 @@
       inherit overlays system;
       config = {
         allowUnfree = true;
-        #allowBroken = true;
+        allowBroken = true;
         #permittedInsecurePackages = [
           #"libsoup-2.74.3"
         #];

@@ -53,9 +53,11 @@ let
 
     # xmonad
     dialog # Dialog boxes on the terminal (to show key bindings)
-    networkmanager_dmenu # networkmanager on dmenu
+    #networkmanager_dmenu # networkmanager on dmenu
     networkmanagerapplet # networkmanager applet
     nitrogen # wallpaper manager
+    xmobar
+    xdotool
     xcape # keymaps modifier
     xorg.xkbcomp # keymaps modifier
     xorg.xmodmap # keymaps modifier
@@ -78,6 +80,7 @@ in
     #../../programs/autorandr
     #../../programs/orage
     ../../programs/rofi
+    ../../programs/xmobar
     #../../programs/statix
     #../../services/dunst
     #../../services/networkmanager
