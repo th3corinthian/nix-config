@@ -2,10 +2,10 @@ import XMonad
 import XMonad.Util.EZConfig
 
 main = xmonad $ def
-  { startupHook = spawn "feh --big-scale ~/.wallpapers/wp10117214.jpg"
+  {  startupHook = spawn "nitrogen --set-zoom-fill ~/.wallpapers/my-wallpaper.jpg"
   , terminal    = "alacritty"
   , modMask     = mod4Mask
-  , borderWidth = 2
+  , borderWidth = 1
   } `additionalKeys`
   [ ((mod4Mask, xK_Return), spawn "alacritty")
   , ((mod4Mask .|. shiftMask, xK_p), spawn "rofi -show drun")

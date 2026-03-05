@@ -22,7 +22,7 @@ let
   xmonadPkgs = with pkgs; [
     arandr # simple GUI for xrandr
     asciinema # record the terminal
-    bitwarden-cli # command-line client for the password manager
+    #bitwarden-cli # command-line client for the password manager
     # FIXME: calibre is broken
     #calibre # e-book reader
     #cobang               # qr-code scanner
@@ -56,7 +56,7 @@ let
     #networkmanager_dmenu # networkmanager on dmenu
     networkmanagerapplet # networkmanager applet
     nitrogen # wallpaper manager
-    xmobar
+    #xmobar
     xdotool
     xcape # keymaps modifier
     xorg.xkbcomp # keymaps modifier
@@ -80,14 +80,14 @@ in
     #../../programs/autorandr
     #../../programs/orage
     ../../programs/rofi
-    ../../programs/xmobar
+    #../../programs/xmobar
     #../../programs/statix
     #../../services/dunst
     #../../services/networkmanager
     #../../services/picom
     #../../services/polybar
     #../../services/screenlocker
-    ../../services/feh
+    #../../services/feh
   ];
 
   home = {
@@ -95,7 +95,10 @@ in
     packages = xmonadPkgs ++ gnomePkgs;
     username = "corinthian";
     homeDirectory = "/home/corinthian";
+    #file."wallpapers/my-wallpaper.jpg".source = ../../../assets/wp10117214.jpg;
   };
+
+  home.file.".wallpapers/my-wallpaper.jpg".source = ../../../assets/wp14230291.jpg;
 
   #backupFileExtension = "backup";
 
