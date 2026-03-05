@@ -41,6 +41,11 @@ let
     xsel # clipboard support (also for neovim)
     zip # compress files
 
+    nasm
+    libllvm
+    gdb
+    gef
+    asterisk_23
     nodejs_24
     tor-browser
     kicad

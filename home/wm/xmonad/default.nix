@@ -87,6 +87,7 @@ in
     #../../services/picom
     #../../services/polybar
     #../../services/screenlocker
+    ../../services/feh
   ];
 
   home = {

@@ -43,7 +43,7 @@ in
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Set your time zone.
-  time.timeZone = "New-York";
+  time.timeZone = "America/New_York";
 
   # List packages installed in system profile
   environment.systemPackages = with pkgs; [
@@ -63,6 +63,7 @@ in
     ranger
     bluetui
     qbittorrent
+    nasm
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
