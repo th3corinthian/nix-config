@@ -3,6 +3,7 @@ import XMonad.Util.EZConfig
 
 main = xmonad $ def
   {  startupHook = spawn "nitrogen --set-zoom-fill ~/.wallpapers/my-wallpaper.jpg"
+  ,  startupHook = spawn "picom --config /home/corinthian/.config/picom/picom.conf &"
   , terminal    = "alacritty"
   , modMask     = mod4Mask
   , borderWidth = 1

@@ -84,7 +84,7 @@ in
     #../../programs/statix
     #../../services/dunst
     #../../services/networkmanager
-    #../../services/picom
+    ../../services/picom
     #../../services/polybar
     #../../services/screenlocker
     #../../services/feh
