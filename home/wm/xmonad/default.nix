@@ -98,7 +98,7 @@ in
     #file."wallpapers/my-wallpaper.jpg".source = ../../../assets/wp10117214.jpg;
   };
 
-  home.file.".wallpapers/my-wallpaper.jpg".source = ../../../assets/wp14230291.jpg;
+  home.file.".wallpapers/my-wallpaper.jpg".source = ../../../assets/wp14353305.jpg;
 
   #backupFileExtension = "backup";
 
