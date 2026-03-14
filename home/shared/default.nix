@@ -57,6 +57,12 @@ let
     wechat-uos
     kitty
 
+    cargo
+    rustc
+    gcc
+
+    android-studio
+
   ] ++ (pkgs.sxm.scripts or [ ]);
 in
 {

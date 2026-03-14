@@ -16,8 +16,8 @@
       "95:class_g = 'kitty' && focused"
       "85:class_g = 'kitty' && !focused"
 
-      # Emacs: always 100% (if you prefer no transparency)
       "90:class_g = 'Emacs'"
+      "90:class_g = 'firefox'"
     ];
     shadow = true;
     shadowOpacity = 0.75;

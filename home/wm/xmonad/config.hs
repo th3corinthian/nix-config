@@ -1,9 +1,18 @@
 import XMonad
 import XMonad.Util.EZConfig
+import XMonad.Layout.Gaps
+import XMonad.Hooks.ManageDocks (avoidStruts) -- Often used with gaps
+
+myLayout = avoidStruts $       -- Respect system trays/docks
+           gaps [(U,6), (R,6), (D,6), (L,6)] $  -- Add your custom screen-edge gaps
+           Tall 1 (3/100) (1/2) ||| Full  -- Your layouts
+
 
 main = xmonad $ def
-  {  startupHook = spawn "nitrogen --set-zoom-fill ~/.wallpapers/my-wallpaper.jpg"
-  ,  startupHook = spawn "picom --config /home/corinthian/.config/picom/picom.conf &"
+  {  startupHook = do
+      spawn "nitrogen --set-zoom-fill ~/.wallpapers/my-wallpaper.jpg"
+      spawn "picom --config /home/corinthian/.config/picom/picom.conf &"
+  , layoutHook  = myLayout
   , terminal    = "alacritty"
   , modMask     = mod4Mask
   , borderWidth = 1

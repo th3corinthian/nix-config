@@ -7,6 +7,10 @@
 
 /"The wired might actually be thought of as a highly advanced upper layer of the real world. In other words, physical reality is nothing but an illusion, a hologram of the information that flows to us through the wired."/
 
+This repository holds my personal NixOS configuration, managed with flakes to achieve a fully reproducible and declarative system across all my machines. It covers three very different devices: a vintage ThinkPad T60p (my retro coding companion), a classic ThinkPad X220 (daily driver for lightweight tasks), and a AMD desktop (powerhouse for development and media). Each configuration is tailored to the specific hardware while sharing a common base of modules that define my preferred environment — xmonad, hyprland, suckless utils, terminal utils, development toolchains, and carefully curated package sets.
+
+The structure reflects a modular approach: host-specific files set hardware and machine‑unique options, while common modules handle shared services, user preferences, and home‑manager integration. This allows me to manage dotfiles, shell configurations, and even user services declaratively, ensuring a consistent experience whether I’m on a 15‑year‑old laptop or a modern Ryzen machine. By relying on Nix’s reproducibility, I can rebuild or replicate any system from this single source of truth, making the configuration both a backup and a blueprint for my ideal computing environment.
+
 #+BEGIN_SRC bash
 ├───homeConfigurations: unknown
 ├───nixosConfigurations
