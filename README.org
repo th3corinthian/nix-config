@@ -4,7 +4,6 @@
 
 [[file:assets/cover.jpg]]
 
-
 /"The wired might actually be thought of as a highly advanced upper layer of the real world. In other words, physical reality is nothing but an illusion, a hologram of the information that flows to us through the wired."/
 
 This repository holds my personal NixOS configuration, managed with flakes to achieve a fully reproducible and declarative system across all my machines. It covers three very different devices: a vintage ThinkPad T60p, a classic ThinkPad X220, and a AMD desktop. Each configuration is tailored to the specific hardware while sharing a common base of modules that define my preferred environment — xmonad, hyprland, suckless utils, terminal utils, development toolchains, and carefully curated package sets.
