@@ -41,6 +41,7 @@ let
     xsel # clipboard support (also for neovim)
     zip # compress files
 
+    syncthing
     nasm
     libllvm
     gdb
