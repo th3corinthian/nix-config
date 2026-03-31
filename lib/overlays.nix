@@ -18,8 +18,6 @@ let
 
     #inherit (inputs.nix-index-database.packages.${system}) nix-index-database nix-index-small-database;
 
-    inherit (inputs.nixpkgs-hyprland.legacyPackages.${system}) hyprland;
-
     builders = {
       mkHome = { pkgs ? f, extraHomeConfig ? { } }:
         import ../outputs/hm.nix { inherit extraHomeConfig inputs pkgs system; };
@@ -51,10 +49,8 @@ let
       p.tree-sitter-smithy
     ]);
 
-    wooz = inputs.wooz-flake.packages.${system}.default;
-
     sources = {
-      inherit (inputs) diskonaut gh-md-toc hyprlax wshowkeys hypr-monitor-attached pyprland;
+      inherit (inputs) diskonaut gh-md-toc;
     };
 
     xargs = {
@@ -65,18 +61,4 @@ in
 [
   libOverlay
   overlays
-  #inputs.nix-index.overlays.${system}.default
-  #inputs.nurpkgs.overlays.default
-  #inputs.neovim-flake.overlays.${system}.default
-  #inputs.niri-flake.overlays.niri
-  #(import ../home/overlays/bazecor)
-  #(import ../home/overlays/diskonaut)
-  #(import ../home/overlays/gh-md-toc)
-  #(import ../home/overlays/hyprlax)
-  #(import ../home/overlays/hypr-monitor-attached)
-  #(import ../home/overlays/pyprland)
-  #(import ../home/overlays/sway-audio-idle-inhibit)
-  #(import ../home/overlays/scripts)
-  #(import ../home/overlays/wshowkeys)
-  #(import ../home/overlays/zoom)
 ]

@@ -1,114 +1,94 @@
-/**
- * Catppuccin Mocha theme
- * Color palette copied from https://catppuccin.com/palette
- * https://github.com/hiimsergey/rofi-catppuccin
- */
-
 * {
-    base: #1e1e2e;
-    surface0: #313244;
-    overlay0: #6c7086;
-    text: #cdd6f4;
+    bg:       #1c2028;
+    surface:  #232936;
+    dim:      #4b5263;
+    fg:       #c8ccd4;
+    blue:     #7aa2d4;
+    green:    #98c379;
+    amber:    #d19a66;
+    red:      #be5046;
 
-    mauve: #cba6f7;
-    red: #f38ba8;
-    peach: #fab387;
-    green: #a6e3a1;
-    lavender: #b4befe;
-
-    background-color: @base;
+    background-color: @bg;
+    text-color:       @fg;
 }
 
 window {
-    height: 600;
-    width: 600;
-
-    border: 3;
-    border-radius: 10;
-    border-color: @lavender;
+    height:        500;
+    width:         560;
+    border:        2;
+    border-radius: 6;
+    border-color:  @blue;
+    background-color: @bg;
 }
 
 mainbox {
-    spacing: 0;
-    children: [inputbar, message, listview];
+    spacing:  0;
+    children: [inputbar, listview];
 }
 
 inputbar {
-    color: @text;
-    padding: 14;
-    background-color: @base;
-}
-
-message {
-    padding: 10;
-    background-color: @overlay0;
-}
-
-listview {
-    padding: 8;
-    border-radius: 0 0 10 10;
-    border: 2 2 2 2;
-    border-color: @base;
-    background-color: @base;
-    dynamic: false;
-}
-
-textbox {
-    text-color: @text;
-    background-color: inherit;
-}
-
-error-message {
-    border: 20 20 20 20;
-}
-
-entry, prompt, case-indicator {
-    text-color: inherit;
+    padding:          10 14;
+    background-color: @bg;
+    text-color:       @fg;
+    children:         [prompt, entry];
 }
 
 prompt {
-    margin: 0 10 0 0;
+    margin:     0 10 0 0;
+    text-color: @blue;
+}
+
+entry, case-indicator {
+    text-color: @fg;
+}
+
+listview {
+    padding:          6;
+    background-color: @bg;
+    dynamic:          false;
+    lines:            10;
 }
 
 element {
-    padding: 5;
-    vertical-align: 0.5;
-    border-radius: 10;
-    background-color: @surface0;
+    padding:          6 10;
+    border-radius:    4;
+    background-color: @bg;
+    text-color:       @fg;
 }
 
-element.selected.normal {
-    background-color: @overlay0;
+element selected.normal {
+    background-color: @surface;
+    text-color:       @blue;
 }
 
-element.alternate.normal {
-    background-color: inherit;
+element normal.active, element alternate.active {
+    background-color: @surface;
+    text-color:       @amber;
 }
 
-element.normal.active, element.alternate.active {
-    background-color: @peach;
+element selected.active {
+    background-color: @surface;
+    text-color:       @green;
 }
 
-element.selected.active {
-    background-color: @green;
+element normal.urgent, element alternate.urgent {
+    background-color: @surface;
+    text-color:       @red;
 }
 
-element.normal.urgent, element.alternate.urgent {
-    background-color: @red;
-}
-
-element.selected.urgent {
-    background-color: @mauve;
+element selected.urgent {
+    background-color: @surface;
+    text-color:       @red;
 }
 
 element-text, element-icon {
-    size: 40;
-    margin: 0 10 0 0;
-    vertical-align: 0.5;
+    margin:           0 8 0 0;
+    vertical-align:   0.5;
     background-color: inherit;
-    text-color: @text;
+    text-color:       inherit;
 }
 
-element-text .active, element-text .urgent {
-    text-color: @base;
+scrollbar {
+    handle-color:     @dim;
+    background-color: @bg;
 }

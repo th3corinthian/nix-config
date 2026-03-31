@@ -6,16 +6,139 @@
 
 /"The wired might actually be thought of as a highly advanced upper layer of the real world. In other words, physical reality is nothing but an illusion, a hologram of the information that flows to us through the wired."/
 
-This repository holds my personal NixOS configuration, managed with flakes to achieve a fully reproducible and declarative system across all my machines. It covers three very different devices: a vintage ThinkPad T60p, a classic ThinkPad X220, and a AMD desktop. Each configuration is tailored to the specific hardware while sharing a common base of modules that define my preferred environment — xmonad, hyprland, suckless utils, terminal utils, development toolchains, and carefully curated package sets.
+This repository holds my personal NixOS configuration, managed with flakes for fully reproducible, declarative system management across two machines: a ThinkPad X220 and an AMD desktop. Host-specific files handle hardware and boot configuration, while a shared base covers services, user preferences, and home-manager integration — ensuring a consistent environment across different hardware.
 
-The structure reflects a modular approach: host-specific files set hardware and machine‑unique options, while common modules handle shared services, user preferences, and home‑manager integration. This allows me to manage dotfiles, shell configurations, and even user services declaratively, ensuring a consistent experience whether I’m on a 15‑year‑old laptop or a modern Ryzen machine. By relying on Nix’s reproducibility, I can rebuild or replicate any system from this single source of truth, making the configuration both a backup and a blueprint for my ideal computing environment.
+* Flake Outputs
+
+#+BEGIN_SRC
+├───homeConfigurations
+│   ├───xmonad             # ThinkPad X220 — xmonad + xmobar
+│   └───tongfang-xfce      # AMD desktop — XFCE
+├───nixosConfigurations
+│   ├───thinkpad-x220      # ThinkPad X220
+│   └───tongfang-amd       # AMD desktop (Tongfang chassis)
+└───out
+    └───pkgs / overlays
+#+END_SRC
+
+* Structure
+
+#+BEGIN_SRC
+├── flake.nix                  # inputs, overlays, output builders
+├── lib/
+│   ├── overlays.nix           # custom pkgs, builders, lib extensions
+│   ├── default.nix            # lib helpers (exe, secretManager, …)
+│   └── schemas.nix            # flake schema metadata
+├── outputs/
+│   ├── os.nix                 # nixosConfigurations builder
+│   └── hm.nix                 # homeConfigurations builder
+├── system/
+│   ├── configuration.nix      # shared system config (all hosts)
+│   ├── virtualisation.nix     # docker
+│   ├── hosts/
+│   │   ├── thinkpad-x220/     # GRUB, latest kernel, xmonad WM
+│   │   └── tongfang-amd/      # systemd-boot, latest kernel, XFCE
+│   └── wm/
+│       ├── xmonad.nix         # X11, xserver, keyboard layout
+│       └── xfce.nix           # XFCE, lightdm, pipewire
+└── home/
+    ├── shared/                # base packages and programs (all profiles)
+    ├── programs/              # per-program home-manager configs
+    │   ├── alacritty/
+    │   ├── emacs/
+    │   ├── fish/
+    │   ├── git/
+    │   ├── rofi/
+    │   └── xmobar/
+    ├── services/              # user systemd services
+    │   ├── gpg-agent/
+    │   ├── picom/
+    │   └── udiskie/
+    └── wm/
+        ├── xmonad/            # xmonad config.hs, xmobar PP wiring
+        └── xfce/              # XFCE home profile
+#+END_SRC
+
+* Hosts
+
+** ThinkPad X220
+Classic Intel laptop. Legacy GRUB on =/dev/sda=, latest kernel. Runs xmonad as the window manager with xmobar as the status bar.
+
+To apply:
+#+BEGIN_SRC bash
+sudo nixos-rebuild switch --flake .#thinkpad-x220
+home-manager switch --flake .#xmonad
+#+END_SRC
+
+** Tongfang AMD Desktop
+AMD desktop in a Tongfang chassis. UEFI with systemd-boot, latest kernel. Runs XFCE.
+
+Before first deploy, generate hardware config on the target machine:
+#+BEGIN_SRC bash
+nixos-generate-config --show-hardware-config > system/hosts/tongfang-amd/hardware-configuration.nix
+#+END_SRC
+
+Then apply:
+#+BEGIN_SRC bash
+sudo nixos-rebuild switch --flake .#tongfang-amd
+home-manager switch --flake .#tongfang-xfce
+#+END_SRC
+
+* Desktop Environment
+
+** XMonad (ThinkPad X220)
+xmonad with =xmonad-contrib=. Layout is =Tall ||| Full= with screen-edge gaps and =avoidStruts= to respect the bar.
+
+Keybinds:
+| Key                    | Action               |
+|------------------------+----------------------|
+| =Super + Enter=        | Launch Alacritty     |
+| =Super + Shift + P=    | Rofi launcher        |
+| =Super + Shift + C=    | Close window         |
+| =Super + Q=            | Recompile and restart |
+
+Keyboard layout: US with Caps Lock remapped to Ctrl (=ctrl:nocaps=).
+
+** Xmobar
+Status bar with a matte dark blueish theme (=bg: #1c2028=). Displays:
+- Workspace and layout info piped from xmonad via =statusBarProp=
+- CPU usage, memory usage, battery (with charge/discharge/full states)
+- Date and time
+
+Spawned and managed by xmonad via the =withSB= / =statusBarProp= API.
+
+** Rofi
+Application launcher themed to match xmobar. Blue accent (=#7aa2d4=) on a dark slate background (=#1c2028=). Plugins: =rofi-calc=, =rofi-emoji=.
+
+** Picom
+Compositor running as a user systemd service.
+
+* Shared System Config
+All hosts inherit =system/configuration.nix=, which provides:
+
+- *Networking*: NetworkManager, Mullvad VPN
+- *Packages*: vim, git, alacritty, firefox, vlc, qbittorrent, ranger, android-tools, nasm, scrcpy
+- *GPG*: =gnupg.agent= with SSH support
+- *Docker*: enabled with weekly auto-prune and a custom bridge IP
+- *Printing*: CUPS with Epson ESC/P-R driver
+- *Shell*: fish (system-wide)
+- *Nix daemon*: weekly GC (7-day retention), auto-optimise store, flakes + ca-derivations enabled
+- *Activation diff*: =nvd= diff report on every =nixos-rebuild switch=
+
+* Home Base
+All home profiles share =home/shared/=, which includes:
+
+- *Editors*: emacs
+- *Dev tools*: cargo, rustc, gcc, gdb, gef, nodejs, nasm, cmake, libllvm, android-studio, claude-code
+- *Security/network*: tor-browser, maltego, wireshark-adjacent tooling
+- *Misc*: tmux (nord theme), syncthing, kicad, telegram-desktop, kitty, bottom, eza, fd, ripgrep, fzf, zoxide, bat, direnv, jq, fastfetch
+
+* Updating
 
 #+BEGIN_SRC bash
-├───homeConfigurations: unknown
-├───nixosConfigurations
-│   ├───thinkpad-t60p: NixOS configuration
-│   ├───thinkpad-x220: NixOS configuration
-│   └───tongfang-amd: NixOS configuration
-├───out: unknown
-└───schemas: unknown
+# Update all inputs
+nix flake update
+
+# Update a single input
+nix flake update nixpkgs
 #+END_SRC

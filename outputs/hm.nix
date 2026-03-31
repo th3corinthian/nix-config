@@ -7,35 +7,17 @@ let
     extraHomeConfig
   ];
 
-  mkHome = { mut ? false, mods ? [ ] }:
+  mkHome = { mods ? [ ] }:
     inputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = pkgs.xargs;
-      modules = modules' ++ mods ++ [
-        #{ inherit hidpi; }
-      ];
+      modules = modules' ++ mods;
     };
 
-  #mkXmonadHome = { hdipi }: mkHome
-
-  mkXmonadHome = mkHome {
-    #inherit hidpi;
-    mods = [ ../home/wm/xmonad ];
-  };
-
-  mkHyprlandHome = { hidpi, mut ? false }: mkHome {
-    inherit hidpi mut;
-    mods = [
-      inputs.hypr-binds-flake.homeManagerModules.${system}.default
-      ../home/wm/hyprland
-    ];
-  };
+  mkXmonadHome = mkHome { mods = [ ../home/wm/xmonad ]; };
+  mkXfceHome   = mkHome { mods = [ ../home/wm/xfce ]; };
 in
 {
-  hyprland-edp = mkHyprlandHome { hidpi = false; };
-  hyprland-hdmi = mkHyprlandHome { hidpi = true; };
-  hyprland-hdmi-mutable = mkHyprlandHome { hidpi = true; mut = true; };
-  
-  xmonad-edp = mkXmonadHome; #{ hidpi = false; };
-  xmonad-hdmi = mkXmonadHome { hidpi = true; };
+  xmonad        = mkXmonadHome;
+  tongfang-xfce = mkXfceHome;
 }

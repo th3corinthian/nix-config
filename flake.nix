@@ -16,8 +16,6 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     flake-schemas.url = github:DeterminateSystems/flake-schemas;
-    # https://github.com/hyprwm/Hyprland/issues/9518
-    nixpkgs-hyprland.url = "nixpkgs/b582bb5b0d7af253b05d58314b85ab8ec46b8d19";
 
     home-manager = {
       url = github:nix-community/home-manager;
@@ -46,22 +44,6 @@
       url = github:gvolpe/nix-index;
       inputs.nix-index-database.follows = "nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Hyprland
-    hyprland = {
-      url = github:hyprwm/Hyprland?ref=v0.46.2;
-      flake = false;
-    };
-
-    hypr-binds-flake = {
-      url = github:hyprland-community/hypr-binds;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    pyprland = {
-      url = github:hyprland-community/pyprland?ref=2.3.8;
-      flake = false;
     };
 
     # Github Markdown ToC generator
@@ -108,11 +90,6 @@
       inherit overlays system;
       config = {
         allowUnfree = true;
-        allowBroken = true;
-        #permittedInsecurePackages = [
-          #"libsoup-2.74.3"
-        #];
-        #contentAddressedByDefault = false;
       };
     };
   in

@@ -15,6 +15,7 @@ let
     docker-compose # docker manager
     duf # disk usage/free utility
     emacs
+    cmake
     eza # a better `ls`
     fd # "find" for files
     fastfetch
@@ -63,6 +64,7 @@ let
     gcc
 
     android-studio
+    claude-code
 
   ] ++ (pkgs.sxm.scripts or [ ]);
 in

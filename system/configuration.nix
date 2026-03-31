@@ -64,6 +64,8 @@ in
     bluetui
     qbittorrent
     nasm
+    android-tools
+    scrcpy
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -159,11 +161,13 @@ in
     fi
   '';
 
+  #programs.adb.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.corinthian = {
     isNormalUser = true;
     # wheel for 'sudo', uucp for bazecor to access ttyAMC0 (keyboard firmware updates)
-    extraGroups = [ "docker" "networkmanager" "wheel" "scanner" "lp" "uucp" ];
+    extraGroups = [ "docker" "networkmanager" "wheel" "scanner" "lp" "uucp" "adbusers" ];
     shell = pkgs.fish;
   };
 

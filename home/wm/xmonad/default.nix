@@ -80,7 +80,7 @@ in
     #../../programs/autorandr
     #../../programs/orage
     ../../programs/rofi
-    #../../programs/xmobar
+    ../../programs/xmobar
     #../../programs/statix
     #../../services/dunst
     #../../services/networkmanager
