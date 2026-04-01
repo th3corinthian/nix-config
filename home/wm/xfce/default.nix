@@ -20,7 +20,7 @@ in
     ../../services/picom
   ];
 
-  x2goserver = {
+  programs.x2goserver = {
     enable = true;
   };
 
