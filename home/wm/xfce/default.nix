@@ -20,9 +20,11 @@ in
     ../../services/picom
   ];
 
-  programs.x2goserver = {
-    enable = true;
-  };
+  #programs.x2goserver = {
+    #enable = true;
+  #};
+
+
 
   home = {
     stateVersion = "25.11";
