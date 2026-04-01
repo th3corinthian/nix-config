@@ -88,12 +88,17 @@ in
   virtualisation = {
     docker = {
       enable = true;
-      autoPrune = {
-        enable = true;
-        dates = "weekly";
-      };
+      #autoPrune = {
+        #enable = true;
+        #dates = "weekly";
+      #};
       daemon.settings = {
-        bip = "169.254.0.1/16";
+        #bip = "169.254.0.1/16";
+        log-driver = "json-file";
+        log-opts = {
+          max-size = "10m";
+          max-file = "3";
+        };
       };
     };
   };

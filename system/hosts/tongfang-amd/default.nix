@@ -18,5 +18,7 @@
 
   networking.hostName = "tongfang-amd";
 
+  services.x2goserver.enable = true;
+
   system.stateVersion = "25.11";
 }
