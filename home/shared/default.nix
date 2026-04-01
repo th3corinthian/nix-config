@@ -67,7 +67,7 @@ let
     claude-code
     claude-monitor
     x2goclient
-    x2goserver
+    #x2goserver
 
   ] ++ (pkgs.sxm.scripts or [ ]);
 in
