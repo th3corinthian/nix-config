@@ -20,6 +20,10 @@ in
     ../../services/picom
   ];
 
+  services.x2goserver = {
+    enable = true;
+  };
+
   home = {
     stateVersion = "25.11";
     packages = xfcePkgs;
