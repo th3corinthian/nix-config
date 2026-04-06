@@ -20,5 +20,13 @@
 
   services.x2goserver.enable = true;
 
+  services.jellyfin = {
+    enable = true;
+    openFirewall = true;
+  };
+
+  # Allow corinthian to access Jellyfin's media directories
+  users.users.corinthian.extraGroups = [ "jellyfin" ];
+
   system.stateVersion = "25.11";
 }

@@ -20,9 +20,9 @@ in
     ../../services/picom
   ];
 
-  services.x2goserver = {
-    enable = true;
-  };
+  #services.x2goserver = {
+    #enable = true;
+  #};
 
 
 
