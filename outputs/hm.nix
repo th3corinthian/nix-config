@@ -16,8 +16,10 @@ let
 
   mkXmonadHome = mkHome { mods = [ ../home/wm/xmonad ]; };
   mkXfceHome   = mkHome { mods = [ ../home/wm/xfce ]; };
+  mkBspwmHome  = mkHome { mods = [ ../home/wm/bspwm ]; };
 in
 {
   xmonad        = mkXmonadHome;
   tongfang-xfce = mkXfceHome;
+  nixos-vm      = mkBspwmHome;
 }

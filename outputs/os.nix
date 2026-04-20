@@ -4,7 +4,7 @@ let
   inherit (inputs.nixpkgs.lib) nixosSystem;
   inherit (pkgs) lib;
 
-  hosts = [ "thinkpad-x220" "tongfang-amd" ];
+  hosts = [ "thinkpad-x220" "tongfang-amd" "nixos-vm" ];
 
   modules' = [
     ../system/configuration.nix
