@@ -66,7 +66,9 @@ let
     android-studio
     claude-code
     claude-monitor
-    x2goclient
+    #claude-code
+    #claude-monitor
+    #x2goclient
     #x2goserver
 
   ] ++ (pkgs.sxm.scripts or [ ]);
