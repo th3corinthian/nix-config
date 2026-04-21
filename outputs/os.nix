@@ -8,7 +8,7 @@ let
 
   modules' = [
     ../system/configuration.nix
-    ../system/virtualisation.nix
+    #../system/virtualisation.nix
     extraSystemConfig
     { nix.registry.nixpkgs.flake = inputs.nixpkgs; }
   ];
