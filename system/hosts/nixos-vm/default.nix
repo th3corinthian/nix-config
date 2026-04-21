@@ -6,6 +6,7 @@
     # resulting hardware-configuration.nix alongside this file, then add:
     # ./hardware-configuration.nix
     ../../wm/bspwm.nix
+    ./hardware-configuration.nix
   ];
 
   boot = {
