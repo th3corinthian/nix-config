@@ -93,13 +93,14 @@ in
 
     #changes-report.enable = true;
 
-    #sessionVariables = {
-      #BROWSER = "${lib.exe pkgs.firefox-beta}";
-      #DISPLAY = ":0";
-      #EDITOR = "nvim";
+    sessionVariables = {
+      # Fcitx5 input method for Chinese
+      GTK_IM_MODULE = "fcitx";
+      QT_IM_MODULE = "fcitx";
+      XMODIFIERS = "@im=fcitx";
       # https://github.com/NixOS/nixpkgs/issues/24311#issuecomment-980477051
       #GIT_ASKPASS = "";
-    #};
+    };
   };
 
   # garbage collection

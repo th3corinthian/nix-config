@@ -42,6 +42,22 @@ in
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
+  i18n.supportedLocales = [
+    "en_US.UTF-8/UTF-8"
+    "zh_CN.UTF-8/UTF-8"
+    "zh_TW.UTF-8/UTF-8"
+  ];
+
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5.addons = with pkgs; [
+      fcitx5-rime
+      qt6Packages.fcitx5-chinese-addons
+      fcitx5-gtk
+    ];
+  };
+
   # Set your time zone.
   time.timeZone = "America/New_York";
 
@@ -174,6 +190,10 @@ in
     font-awesome
     myfonts.flags-world-color
     myfonts.icomoon-feather
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+    source-han-sans
+    source-han-serif
   ] ++ customFonts;
 
   programs.fish.enable = true;
