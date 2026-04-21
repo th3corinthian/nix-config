@@ -33,7 +33,7 @@ in
     useDHCP = false;
   };
 
-  #services.mullvad-vpn.enable = true;
+  services.mullvad-vpn.enable = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -70,7 +70,7 @@ in
     pass
     pinentry-curses
 
-    #mullvad-vpn
+    mullvad-vpn
 
     git
     alacritty
@@ -96,11 +96,14 @@ in
 
   # List services that you want to enable:
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = false;
+  networking.firewall = {
+    enable = true;
+    # All traffic on the Tailscale interface is trusted (SSH, x2go, etc.)
+    trustedInterfaces = [ "tailscale0" ];
+    # SSH open on LAN for local access; Tailscale UDP for direct peer connections
+    allowedTCPPorts = [ 22 ];
+    allowedUDPPorts = [ 41641 ];
+  };
 
   # Enable Docker support
   virtualisation = {
@@ -176,6 +179,8 @@ in
       #bazecor # Dygma Defy keyboard udev rules for non-root modifications
       #yubikey-personalization # Yubikey OTP mode (udev)
     #];
+
+    tailscale.enable = true;
 
     # SSH daemon.
     sshd.enable = true;

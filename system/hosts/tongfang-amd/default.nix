@@ -20,6 +20,14 @@
 
   services.x2goserver.enable = true;
 
+  services.openssh = {
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
+
   services.jellyfin = {
     enable = true;
     openFirewall = true;
