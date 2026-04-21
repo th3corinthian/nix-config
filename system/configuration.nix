@@ -33,7 +33,7 @@ in
     useDHCP = false;
   };
 
-  services.mullvad-vpn.enable = true;
+  #services.mullvad-vpn.enable = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -70,7 +70,7 @@ in
     pass
     pinentry-curses
 
-    mullvad-vpn
+    #mullvad-vpn
 
     git
     alacritty
