@@ -21,7 +21,7 @@
   networking.hostName = "nixos-vm";
 
   # Useful for VMs — adjust or remove depending on your hypervisor
-  services.qemuGuest.enable = true;
+  #services.qemuGuest.enable = true;
 
   system.stateVersion = "25.11";
 }
