@@ -57,8 +57,10 @@ let
       inherit (inputs) nord-tmux;
     };
   };
+  pythonOverlay = import ../home/overlays/python/default.nix;
 in
 [
   libOverlay
   overlays
+  pythonOverlay
 ]
