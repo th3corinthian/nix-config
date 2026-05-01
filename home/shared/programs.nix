@@ -66,7 +66,7 @@ let
         extraConfig = "
           Host nixos-desktop
                Hostname 192.168.1.84
-               Port 5432
+               Port 22
                User corinthian
 
                IdentitiesOnly  yes
