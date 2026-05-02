@@ -10,7 +10,8 @@
 
   programs.git = {
     enable = true;
-
+    userName = "Sam Feldman";
+    userEmail = "sam.feldman724@proton.me";
     settings = {
       alias = {
         amend = "commit --amend -m";
