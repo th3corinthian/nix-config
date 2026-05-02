@@ -10,6 +10,9 @@ let
     playerctl
     tldr
     tigervnc  # VNC server (virtual display :1); also used for `vncpasswd`
+    xorg.xinit
+    xorg.xauth
+    xterm
   ];
 in
 {
