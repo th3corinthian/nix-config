@@ -62,7 +62,7 @@ playerctl # music player controller
     xorg.xmodmap # keymaps modifier
     xorg.xrandr # display manager (X Resize and Rotate protocol)
 
-    tigervnc # VNC client — connect to tongfang-amd x11vnc over Tailscale
+    tigervnc # VNC client — connect to tongfang-amd :1 (port 5901) over Tailscale
   ];
 
   gnomePkgs = with pkgs; [

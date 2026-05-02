@@ -9,7 +9,7 @@ let
     pavucontrol
     playerctl
     tldr
-    x11vnc  # VNC server — share this XFCE session; also used for `x11vnc -storepasswd`
+    tigervnc  # VNC server (virtual display :1); also used for `vncpasswd`
   ];
 in
 {
@@ -28,17 +28,17 @@ in
     homeDirectory = "/home/corinthian";
   };
 
-  # Share the running XFCE session over VNC on port 5900.
-  # Port 5900 is not in allowedTCPPorts, so it is only reachable via tailscale0
-  # (trustedInterface). One-time setup: run `x11vnc -storepasswd ~/.vnc/passwd`.
-  systemd.user.services.x11vnc = {
+  # TigerVNC virtual display :1 on port 5901, reachable via tailscale0 only
+  # (port not in allowedTCPPorts). One-time setup: run `vncpasswd ~/.vnc/passwd`.
+  # -randr provides the resolution list clients can switch between.
+  systemd.user.services.tigervnc = {
     Unit = {
-      Description = "x11vnc VNC server for display :0";
+      Description = "TigerVNC virtual display :1";
       After = [ "graphical-session.target" ];
       Wants = [ "graphical-session.target" ];
     };
     Service = {
-      ExecStart = "${pkgs.x11vnc}/bin/x11vnc -display :0 -auth guess -forever -loop -noxdamage -shared -rfbauth %h/.vnc/passwd -rfbport 5900";
+      ExecStart = "${pkgs.tigervnc}/bin/Xvnc :1 -geometry 1920x1080 -randr 1920x1080,1680x1050,1440x900,1366x768,1280x800 -rfbport 5901 -rfbauth %h/.vnc/passwd -SecurityTypes VncAuth";
       Restart = "on-failure";
       RestartSec = "3s";
     };
