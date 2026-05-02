@@ -62,7 +62,7 @@ playerctl # music player controller
     xorg.xmodmap # keymaps modifier
     xorg.xrandr # display manager (X Resize and Rotate protocol)
 
-    x2goclient # remote desktop client — connects to tongfang-amd x2goserver over Tailscale SSH
+    moonlight-qt # game-streaming client — connects to tongfang-amd Sunshine over Tailscale
   ];
 
   gnomePkgs = with pkgs; [

@@ -100,7 +100,7 @@ in
 
   networking.firewall = {
     enable = true;
-    # All TCP/UDP traffic on the Tailscale interface is trusted (SSH, x2go, etc.)
+    # All TCP/UDP traffic on the Tailscale interface is trusted (SSH, Sunshine, etc.)
     # Once Tailscale is confirmed working, remove 22 from allowedTCPPorts — SSH
     # will then only be reachable via the encrypted Tailscale tunnel.
     trustedInterfaces = [ "tailscale0" ];

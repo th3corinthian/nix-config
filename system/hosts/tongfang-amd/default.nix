@@ -18,7 +18,13 @@
 
   networking.hostName = "tongfang-amd";
 
-  services.x2goserver.enable = true;
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    # Don't use openFirewall — tailscale0 is already a trustedInterface,
+    # so Sunshine ports are reachable via Tailscale without public exposure.
+  };
 
   services.openssh = {
     settings = {
