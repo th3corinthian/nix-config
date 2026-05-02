@@ -100,9 +100,10 @@ in
 
   networking.firewall = {
     enable = true;
-    # All traffic on the Tailscale interface is trusted (SSH, x2go, etc.)
+    # All TCP/UDP traffic on the Tailscale interface is trusted (SSH, x2go, etc.)
+    # Once Tailscale is confirmed working, remove 22 from allowedTCPPorts — SSH
+    # will then only be reachable via the encrypted Tailscale tunnel.
     trustedInterfaces = [ "tailscale0" ];
-    # SSH open on LAN for local access; Tailscale UDP for direct peer connections
     allowedTCPPorts = [ 22 ];
     allowedUDPPorts = [ 41641 ];
   };
@@ -182,7 +183,11 @@ in
       #yubikey-personalization # Yubikey OTP mode (udev)
     #];
 
-    tailscale.enable = true;
+    tailscale = {
+      enable = true;
+      # After sops bootstrap, uncomment to auto-authenticate on nixos-rebuild:
+      # authKeyFile = config.sops.secrets."tailscale/authkey".path;
+    };
 
     # SSH daemon.
     sshd.enable = true;
@@ -240,6 +245,18 @@ in
       Defaults lecture_file=${misc/groot.txt}
     '';
   };
+
+  # sops-nix: decrypt secrets using each machine's SSH host key as an age key.
+  # Bootstrap steps (one-time, per machine):
+  #   1. nix shell nixpkgs#age nixpkgs#ssh-to-age
+  #   2. Get age pubkey: cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age
+  #      (or remotely: ssh-keyscan -t ed25519 <host> | ssh-to-age)
+  #   3. Add pubkeys to .sops.yaml at the repo root, then:
+  #   4. sops secrets/secrets.yaml  — create/edit the encrypted secrets file
+  #   5. Uncomment authKeyFile in services.tailscale above
+  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  # sops.defaultSopsFile = ../secrets/secrets.yaml;   # uncomment after step 4
+  # sops.secrets."tailscale/authkey" = {};            # uncomment after step 4
 
   # Nix daemon config
   nix = {

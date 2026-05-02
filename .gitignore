@@ -1,1 +1,9 @@
+# Claude Code project instructions (managed symlink)
 CLAUDE.md
+
+# Nix build outputs
+result
+result-*
+
+# Local documentation
+docs/

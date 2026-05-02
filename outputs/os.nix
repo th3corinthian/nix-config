@@ -9,6 +9,7 @@ let
   modules' = [
     ../system/configuration.nix
     ../system/virtualisation.nix
+    inputs.sops-nix.nixosModules.sops
     extraSystemConfig
     { nix.registry.nixpkgs.flake = inputs.nixpkgs; }
   ];
