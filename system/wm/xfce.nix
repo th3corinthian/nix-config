@@ -23,6 +23,13 @@
       desktopManager.xfce.enable = true;
       displayManager.lightdm.enable = true;
     };
+
+    # Autologin so the XFCE graphical session is always running — required for
+    # the Sunshine user service to start and stay up without anyone at the keyboard.
+    displayManager.autoLogin = {
+      enable = true;
+      user = "corinthian";
+    };
   };
 
   hardware.bluetooth = {
