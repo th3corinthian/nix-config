@@ -62,7 +62,7 @@ playerctl # music player controller
     xorg.xmodmap # keymaps modifier
     xorg.xrandr # display manager (X Resize and Rotate protocol)
 
-    moonlight-qt # game-streaming client — connects to tongfang-amd Sunshine over Tailscale
+    tigervnc # VNC client — connect to tongfang-amd x11vnc over Tailscale
   ];
 
   gnomePkgs = with pkgs; [
