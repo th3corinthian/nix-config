@@ -235,6 +235,9 @@ in
     isNormalUser = true;
     # wheel for 'sudo', uucp for bazecor to access ttyAMC0 (keyboard firmware updates)
     extraGroups = [ "docker" "networkmanager" "wheel" "scanner" "lp" "uucp" "adbusers" ];
+    openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJPAQa5DpQqUZMOEn3o3fM/bixaj7+vlU+RQJ+F83RFf sam.feldman724@proton.me"
+    ];
     shell = pkgs.fish;
   };
 
