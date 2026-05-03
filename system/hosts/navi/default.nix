@@ -42,18 +42,23 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   environment.sessionVariables = {
-    # Use NVIDIA's GBM backend so wlroots can initialize the GPU.
-    GBM_BACKEND             = "nvidia-drm";
+    # Vulkan renderer bypasses the GBM/EGLStreams conflict with NVIDIA entirely.
+    # Requires hardware.nvidia.modesetting.enable = true (already set above).
+    WLR_RENDERER              = "vulkan";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     # NVIDIA's cursor plane has known issues under wlroots; render in software.
-    WLR_NO_HARDWARE_CURSORS = "1";
+    WLR_NO_HARDWARE_CURSORS   = "1";
     # VA-API hardware decode via NVIDIA.
-    LIBVA_DRIVER_NAME       = "nvidia";
+    LIBVA_DRIVER_NAME         = "nvidia";
     # Opt Electron/Chromium apps into native Wayland rendering.
-    NIXOS_OZONE_WL          = "1";
-
-    WLR_DRM_NO_ATOMIC = "1";          # Disables atomic modesetting, more compat with NVIDIA
+    NIXOS_OZONE_WL            = "1";
   };
+
+  environment.systemPackages = with pkgs; [
+    vulkan-loader
+    vulkan-validation-layers
+    nvidia-vaapi-driver
+  ];
 
   networking.hostName = "navi";
 
