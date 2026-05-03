@@ -45,6 +45,7 @@
       slurp
       wl-clipboard
     ];
+    extraOptions = [ "--unsupported-gpu" ];
   };
 
   # Required for swaylock to authenticate via PAM

@@ -30,6 +30,8 @@
     # off for desktops where suspend is not commonly used.
     powerManagement.enable = false;
 
+
+
     # Use the proprietary driver. Set to true for Turing+ (RTX 20xx+) to try
     # the open-source GSP-firmware modules; false is safer for general use.
     open = false;
