@@ -15,11 +15,11 @@ let
     };
 
   mkXmonadHome = mkHome { mods = [ ../home/wm/xmonad ]; };
-  mkXfceHome   = mkHome { mods = [ ../home/wm/xfce ]; };
+  mkSwayHome   = mkHome { mods = [ ../home/wm/sway ]; };
   mkBspwmHome  = mkHome { mods = [ ../home/wm/bspwm ]; };
 in
 {
   xmonad        = mkXmonadHome;
-  tongfang-xfce = mkXfceHome;
+  tongfang-sway = mkSwayHome;
   nixos-vm      = mkBspwmHome;
 }

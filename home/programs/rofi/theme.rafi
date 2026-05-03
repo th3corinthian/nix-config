@@ -1,12 +1,13 @@
 * {
-    bg:       #1c2028;
-    surface:  #232936;
-    dim:      #4b5263;
-    fg:       #c8ccd4;
-    blue:     #7aa2d4;
-    green:    #98c379;
-    amber:    #d19a66;
-    red:      #be5046;
+    bg:        #2a1f1f;
+    surface:   #3d2b2b;
+    dim:       #7a5050;
+    fg:        #e8d5cb;
+    accent:    #f5c2a0;
+    green:     #8fa858;
+    amber:     #d4a846;
+    red:       #d63d3d;
+    maroon:    #b5262a;
 
     background-color: @bg;
     text-color:       @fg;
@@ -17,7 +18,7 @@ window {
     width:         560;
     border:        2;
     border-radius: 6;
-    border-color:  @blue;
+    border-color:  @maroon;
     background-color: @bg;
 }
 
@@ -35,7 +36,7 @@ inputbar {
 
 prompt {
     margin:     0 10 0 0;
-    text-color: @blue;
+    text-color: @accent;
 }
 
 entry, case-indicator {
@@ -58,7 +59,7 @@ element {
 
 element selected.normal {
     background-color: @surface;
-    text-color:       @blue;
+    text-color:       @accent;
 }
 
 element normal.active, element alternate.active {

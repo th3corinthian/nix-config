@@ -4,7 +4,7 @@
   imports = [
     # Run `nixos-generate-config` on the target machine and copy the result here
     ./hardware-configuration.nix
-    ../../wm/xfce.nix
+    ../../wm/sway.nix
   ];
 
   boot = {
