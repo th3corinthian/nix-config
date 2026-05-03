@@ -43,7 +43,7 @@ in
   };
 
   # Override the rofi package to the Wayland-native build
-  programs.rofi.package = pkgs.rofi-wayland;
+  programs.rofi.package = pkgs.rofi;
 
   wayland.windowManager.sway = {
     enable = true;
