@@ -25,6 +25,7 @@ in
     # Enables wireless support and openvpn via network manager.
     networkmanager = {
       enable = true;
+      dns = "systemd-resolved";
     };
 
     # The global useDHCP flag is deprecated, therefore explicitly set to false here.
@@ -33,9 +34,30 @@ in
     useDHCP = false;
   };
 
+  services.resolved = {
+    enable = true;
+    dnssec = "false";   # Mullvad's DNS does not support DNSSEC
+    domains = [ "~." ]; # Route all DNS lookups through resolved
+    fallbackDns = [];   # No fallback — let Mullvad's kill switch control DNS leaks
+  };
+
   services.mullvad-vpn = {
     enable = true;
     package = pkgs.mullvad-vpn;   # full GUI+CLI+daemon derivation
+  };
+
+  # Allow LAN (incl. Tailscale CGNAT 100.64.0.0/10) to bypass Mullvad's kill switch.
+  # Without this, Mullvad blocks all Tailscale traffic.
+  systemd.services.mullvad-allow-lan = {
+    description = "Configure Mullvad to allow LAN/Tailscale traffic";
+    after = [ "mullvad-daemon.service" ];
+    wants = [ "mullvad-daemon.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.mullvad-vpn}/bin/mullvad lan set allow";
+    };
   };
 
   # Configure network proxy if necessary
