@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, boot, ... }:
 
 # Autumn Frappe palette — Catppuccin Frappe structure shifted to warm reds/maroons
 let
@@ -42,7 +42,6 @@ in
     packages = swayPkgs;
   };
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest;
 
   # Override the rofi package to the Wayland-native build
   programs.rofi.package = pkgs.rofi;

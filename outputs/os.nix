@@ -4,7 +4,15 @@ let
   inherit (inputs.nixpkgs.lib) nixosSystem;
   inherit (pkgs) lib;
 
-  hosts = [ "thinkpad-x220" "tongfang-amd" "nixos-vm" ];
+  hosts = {
+    thinkpad-x220 = [];
+    tongfang-amd  = [
+      ({ config, ... }: {
+        hardware.nvidia.package =
+          config.boot.kernelPackages.nvidiaPackages.latest;
+      })
+    ];
+    nixos-vm      = []; };
 
   modules' = [
     ../system/configuration.nix
@@ -14,12 +22,12 @@ let
     { nix.registry.nixpkgs.flake = inputs.nixpkgs; }
   ];
 
-  make = host: {
+  make = host: extraModules: {
     ${host} = nixosSystem {
       inherit lib pkgs system;
       specialArgs = { inherit inputs; };
-      modules = modules' ++ [ ../system/hosts/${host} ];
+      modules = modules' ++ [ ../system/hosts/${host} ] ++ extraModules;
     };
   };
 in
-lib.mergeAttrsList (map make hosts)
+lib.mergeAttrsList (lib.mapAttrsToList make hosts)

@@ -15,7 +15,9 @@ let
     };
 
   mkXmonadHome = mkHome { mods = [ ../home/wm/xmonad ]; };
-  mkSwayHome   = mkHome { mods = [ ../home/wm/sway ]; };
+  mkSwayHome   = mkHome { mods = [
+        ../home/wm/sway
+  ]; };
   mkBspwmHome  = mkHome { mods = [ ../home/wm/bspwm ]; };
 in
 {
