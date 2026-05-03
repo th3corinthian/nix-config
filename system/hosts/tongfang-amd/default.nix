@@ -7,8 +7,16 @@
     ../../wm/sway.nix
   ];
 
+
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
+
+    kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+    extraModprobeConfig = ''
+      options nvidia-drm modeset=1
+    '';
+
+    kernelParams = [ "nvidia_drm.modeset=1" ];
 
     loader = {
       systemd-boot.enable = true;
