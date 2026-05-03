@@ -46,6 +46,22 @@ in
     package = pkgs.mullvad-vpn;   # full GUI+CLI+daemon derivation
   };
 
+  # When Mullvad's WireGuard tunnel comes up it changes the default route, which
+  # drops Tailscale's existing connections. Restarting Tailscale after the tunnel
+  # appears lets it re-initialize through Mullvad's route and come back online.
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="net", KERNEL=="wg0-mullvad", TAG+="systemd", ENV{SYSTEMD_WANTS}="tailscale-restart-on-mullvad.service"
+  '';
+
+  systemd.services.tailscale-restart-on-mullvad = {
+    description = "Restart Tailscale after Mullvad tunnel appears";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 2";
+      ExecStart = "${pkgs.systemd}/bin/systemctl restart tailscale.service";
+    };
+  };
+
   # Allow LAN (incl. Tailscale CGNAT 100.64.0.0/10) to bypass Mullvad's kill switch.
   # Without this, Mullvad blocks all Tailscale traffic.
   systemd.services.mullvad-allow-lan = {
