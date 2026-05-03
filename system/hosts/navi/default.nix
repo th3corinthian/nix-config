@@ -51,6 +51,8 @@
     LIBVA_DRIVER_NAME       = "nvidia";
     # Opt Electron/Chromium apps into native Wayland rendering.
     NIXOS_OZONE_WL          = "1";
+
+    WLR_DRM_NO_ATOMIC = "1";          # Disables atomic modesetting, more compat with NVIDIA
   };
 
   networking.hostName = "navi";
