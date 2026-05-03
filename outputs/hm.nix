@@ -22,6 +22,6 @@ let
 in
 {
   xmonad        = mkXmonadHome;
-  tongfang-sway = mkSwayHome;
+  sway          = mkSwayHome;
   nixos-vm      = mkBspwmHome;
 }

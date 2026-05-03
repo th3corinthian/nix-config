@@ -6,7 +6,7 @@ let
 
   hosts = {
     thinkpad-x220 = [];
-    tongfang-amd  = [
+    navi          = [
       ({ config, ... }: {
         hardware.nvidia.package =
           config.boot.kernelPackages.nvidiaPackages.latest;

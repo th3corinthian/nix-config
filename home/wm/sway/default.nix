@@ -1,4 +1,4 @@
-{ pkgs, lib, config, boot, ... }:
+{ pkgs, lib, ... }:
 
 # Autumn Frappe palette — Catppuccin Frappe structure shifted to warm reds/maroons
 let
