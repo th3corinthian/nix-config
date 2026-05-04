@@ -90,5 +90,6 @@ in
   ../programs/fish
   #../programs/neofetch
   ../programs/ngrok
+  ../programs/emacs
   more
 ]

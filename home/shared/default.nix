@@ -12,9 +12,9 @@ let
     bazecor # configuration software for the dygma defy keyboard
     bottom # alternative to htop & ytop
     dig # dns command-line tool
-    docker-compose # docker manager
+    podman-compose # container orchestration via podman
     duf # disk usage/free utility
-    emacs
+    # emacs managed via home/programs/emacs
     cmake
     eza # a better `ls`
     fd # "find" for files

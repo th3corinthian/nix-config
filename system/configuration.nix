@@ -163,25 +163,6 @@ in
     allowedUDPPorts = [ 41641 ];
   };
 
-  # Enable Docker support
-  virtualisation = {
-    docker = {
-      enable = true;
-      #autoPrune = {
-        #enable = true;
-        #dates = "weekly";
-      #};
-      daemon.settings = {
-        #bip = "169.254.0.1/16";
-        log-driver = "json-file";
-        log-opts = {
-          max-size = "10m";
-          max-file = "3";
-        };
-      };
-    };
-  };
-
   users.extraGroups.vboxusers.members = [ "corinthian" ];
 
   security.rtkit.enable = true;
@@ -289,7 +270,7 @@ in
   users.users.corinthian = {
     isNormalUser = true;
     # wheel for 'sudo', uucp for bazecor to access ttyAMC0 (keyboard firmware updates)
-    extraGroups = [ "docker" "networkmanager" "wheel" "scanner" "lp" "uucp" "adbusers" ];
+    extraGroups = [ "networkmanager" "wheel" "scanner" "lp" "uucp" "adbusers" ];
     openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPXjObNZb56FQNYTCfhj2z6gzn+pxIX9JQtFvl5eRsaB corinthian@x220"
     ];

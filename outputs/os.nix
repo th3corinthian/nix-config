@@ -17,6 +17,7 @@ let
   modules' = [
     ../system/configuration.nix
     ../system/virtualisation.nix
+    ../system/podman.nix
     inputs.sops-nix.nixosModules.sops
     extraSystemConfig
     { nix.registry.nixpkgs.flake = inputs.nixpkgs; }
