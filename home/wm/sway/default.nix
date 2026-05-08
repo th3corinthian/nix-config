@@ -13,8 +13,9 @@ let
   red      = "#c0392b";
 
   # ── WALLPAPER ──────────────────────────────────────────────────────────────
-  # Replace this path with your actual wallpaper (e.g. ~/Pictures/example.jpg)
-  wallpaper = "/home/corinthian/Documents/prog/nix/nix-config/assets/where_is_my_ear.jpg";
+  # Nix path literal — Nix copies the file into the store at build time.
+  # To change the wallpaper, replace the path below (relative to this file).
+  wallpaper = "${../../../assets/trees.jpg}";
   # ──────────────────────────────────────────────────────────────────────────
 
   swayPkgs = with pkgs; [
@@ -126,6 +127,7 @@ in
       keybindings = let mod = "Mod4"; in lib.mkOptionDefault {
         # Applications
         "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
+        "${mod}+Shift+Return" = "exec ${pkgs.kitty}/bin/kitty";
         "${mod}+d"      = "exec rofi -show drun -show-icons";
         "${mod}+p"      = "exec rofi -show run";
 
@@ -259,11 +261,11 @@ in
         resumeCommand  = "${pkgs.sway}/bin/swaymsg 'output * dpms on'";
       }
     ];
-    events = [
-      {
-        event   = "before-sleep";
-        command = "${pkgs.swaylock}/bin/swaylock -c 0a0a0a";
-      }
-    ];
+    #events = [
+      #{
+        #event   = "before-sleep";
+        #command = "${pkgs.swaylock}/bin/swaylock -c 0a0a0a";
+      #}
+    #];
   };
 }
