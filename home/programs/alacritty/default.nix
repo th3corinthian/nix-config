@@ -47,7 +47,7 @@
       terminal.shell.program = "${pkgs.fish}/bin/fish";
       window = {
         decorations = "full";
-        opacity = 0.85;
+        opacity = 0.92;
         padding = {
           x = 5;
           y = 5;

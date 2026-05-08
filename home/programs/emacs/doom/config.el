@@ -43,7 +43,7 @@
 (use-package org-roam
   :ensure t
   :custom
-  (org-roam-directory "~/RoamNotes")
+  (org-roam-directory "~/Documents/org-roam")
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)))
@@ -84,7 +84,7 @@
   :config
   (claude-code-ide-emacs-tools-setup)) ; Optionally enable Emacs MCP tools
 
-(setq org-roam-directory (file-truename "~/Documents/org-roam"))
+;;(setq org-roam-directory (file-truename "~/Documents/org-roam"))
 
 ;; Background-only transparency (text remains fully opaque); requires Emacs 29+
 (add-to-list 'default-frame-alist '(alpha-background . 88))

@@ -8,7 +8,7 @@
 
 This repository holds my personal NixOS configuration, managed with flakes for fully reproducible, declarative system management across two machines: a ThinkPad X220 and an AMD desktop. Host-specific files handle hardware and boot configuration, while a shared base covers services, user preferences, and home-manager integration — ensuring a consistent environment across different hardware.
 
-* Flake Outputs
+** Flake Outputs
 
 #+BEGIN_SRC
 ├───homeConfigurations
@@ -21,7 +21,7 @@ This repository holds my personal NixOS configuration, managed with flakes for f
     └───pkgs / overlays
 #+END_SRC
 
-* Structure
+*** Structure
 
 #+BEGIN_SRC
 ├── flake.nix                  # inputs, overlays, output builders
@@ -60,9 +60,9 @@ This repository holds my personal NixOS configuration, managed with flakes for f
         └── sway/              # Sway compositor, waybar, mako, swayidle
 #+END_SRC
 
-* Hosts
+** Hosts
 
-** ThinkPad X220
+*** ThinkPad X220
 Classic Intel laptop. Legacy GRUB on =/dev/sda=, latest kernel. Runs xmonad as the window manager with xmobar as the status bar.
 
 To apply:
@@ -71,7 +71,7 @@ sudo nixos-rebuild switch --flake .#thinkpad-x220
 home-manager switch --flake .#xmonad
 #+END_SRC
 
-** navi (AMD Desktop)
+*** navi (AMD Desktop)
 AMD CPU + NVIDIA GPU desktop. UEFI with systemd-boot, latest kernel. Runs Sway (Wayland). NVIDIA is configured for Wayland via DRM KMS, Vulkan renderer, and the GBM provider. Also runs a Jellyfin media server accessible via Tailscale/LAN.
 
 To apply:
@@ -80,9 +80,9 @@ sudo nixos-rebuild switch --flake .#navi
 home-manager switch --flake .#sway
 #+END_SRC
 
-* Window Managers
+** Window Managers
 
-** XMonad (ThinkPad X220)
+*** XMonad (ThinkPad X220)
 xmonad with =xmonad-contrib=. Layout is =Tall ||| Full= with screen-edge gaps and =avoidStruts= to respect the bar.
 
 Keybinds:
@@ -95,10 +95,10 @@ Keybinds:
 
 Keyboard layout: US with Caps Lock remapped to Ctrl (=ctrl:nocaps=).
 
-** Xmobar
+*** Xmobar
 Status bar with a dark theme. Displays workspace/layout info piped from xmonad, CPU usage, memory, battery states, and date/time. Spawned by xmonad via the =withSB= / =statusBarProp= API.
 
-** Sway (navi)
+*** Sway (navi)
 Wayland compositor with vim-style focus/move keybindings (h/j/k/l), inner/outer gaps, and the Autumn Frappe color palette. Autologin via greetd; screen locks with swaylock at 5 min idle, display off at 10 min (swayidle).
 
 Keybinds:
@@ -116,16 +116,16 @@ Keybinds:
 | =Print=                | Full screenshot         |
 | =Shift + Print=        | Region screenshot       |
 
-** Waybar
+*** Waybar
 Top bar for Sway: workspaces, window title, clock, CPU, memory, temperature, network, and audio. Themed with the Autumn Frappe palette.
 
-** Rofi
+*** Rofi
 Application launcher on both profiles. On Sway, uses =rofi-wayland= (Wayland-native). Themed to match the Autumn Frappe palette with maroon accents.
 
-** Mako
+*** Mako
 Notification daemon for Sway. Autumn Frappe palette; high-urgency notifications persist until dismissed.
 
-* Color Palette — Autumn Frappe
+*** Color Palette — Autumn Frappe
 Catppuccin Frappe structure shifted to warm reds/maroons, applied across Sway, waybar, rofi, and mako.
 
 | Name       | Hex       | Role                               |
@@ -138,9 +138,9 @@ Catppuccin Frappe structure shifted to warm reds/maroons, applied across Sway, w
 | =amber=    | =#d4a846= | Active items, memory bar           |
 | =text=     | =#e8d5cb= | Primary text                       |
 
-* Packages
+** Packages
 
-** Host Config (=system/configuration.nix=) — System-wide
+*** Host Config (=system/configuration.nix=) — System-wide
 Installed into the system profile, available to all users and root.
 
 | Package            | Purpose                            |
@@ -156,7 +156,7 @@ Installed into the system profile, available to all users and root.
 | =android-tools= + =scrcpy= | Android device management  |
 | =nasm=             | x86 assembler                      |
 
-** Home-Manager (=home/shared/=) — User profile, all machines
+*** Home-Manager (=home/shared/=) — User profile, all machines
 Managed declaratively per-user; all profiles inherit these.
 
 | Package            | Purpose                              |
@@ -188,7 +188,7 @@ Managed declaratively per-user; all profiles inherit these.
 | =jq=, =socat=, =lnav= | Data/network/log tools           |
 | =nix-output-monitor= | Better nix build output            |
 
-** Sway profile only (=home/wm/sway/=)
+*** Sway profile only (=home/wm/sway/=)
 Extra packages pulled in by the Sway home profile.
 
 | Package             | Purpose                          |
@@ -204,7 +204,7 @@ Extra packages pulled in by the Sway home profile.
 | =brightnessctl=     | Backlight control                |
 | =pass=              | Password manager (Wayland-safe)  |
 
-* Shared System Config
+** Shared System Config
 
 All hosts inherit =system/configuration.nix=, which provides:
 
@@ -220,13 +220,13 @@ All hosts inherit =system/configuration.nix=, which provides:
 - *Activation diff*: =nvd= diff report on every =nixos-rebuild switch=
 - *Secrets*: SOPS-nix with age keys derived from each machine's SSH host key
 
-* Virtualisation
+** Virtualisation
 
 - **KVM/QEMU** via =virt-manager= and =libvirtd=, with SPICE USB redirection; =quickemu= for lightweight VMs
 - **Docker**: enabled system-wide, =corinthian= in docker group; log rotation (10 MB / 3 files)
 - **nixos-rebuild build-vm**: =vmVariant= configured (4 GiB RAM, 4 cores)
 
-* Updating
+** Updating
 
 #+BEGIN_SRC bash
 # Update all inputs

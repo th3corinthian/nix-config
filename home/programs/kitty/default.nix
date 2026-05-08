@@ -8,7 +8,7 @@
       size = 11;
     };
     settings = {
-      background_opacity   = "0.85";
+      background_opacity   = "0.92";
       background           = "#0a0a0a";
       foreground           = "#d0d0d0";
       selection_background = "#1c1c1c";
