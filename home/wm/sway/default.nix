@@ -15,7 +15,7 @@ let
   # ── WALLPAPER ──────────────────────────────────────────────────────────────
   # Nix path literal — Nix copies the file into the store at build time.
   # To change the wallpaper, replace the path below (relative to this file).
-  wallpaper = "${../../../assets/trees.jpg}";
+  wallpaper = "${../../../assets/light-green.jpg}";
   # ──────────────────────────────────────────────────────────────────────────
 
   swayPkgs = with pkgs; [
