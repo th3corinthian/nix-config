@@ -1,20 +1,18 @@
 { pkgs, ... }:
 
-# Autumn Frappe palette
+# Van Gogh Starry Night dark palette
 let
-  base      = "#2a1f1f";
-  mantle    = "#231919";
-  surface0  = "#3d2b2b";
-  overlay0  = "#7a5050";
-  text      = "#e8d5cb";
-  subtext1  = "#d4c0b5";
-  rosewater = "#f5c2a0";
-  peach     = "#e0895e";
-  yellow    = "#d4a846";
-  red       = "#d63d3d";
-  maroon    = "#b5262a";
-  green     = "#8fa858";
-  blue      = "#7890c0";
+  bg       = "#0a0a0a";
+  surface0 = "#141414";
+  surface1 = "#1c1c1c";
+  overlay0 = "#383838";
+  text     = "#d0d0d0";
+  subtext1 = "#888888";
+  teal     = "#4ecdc4";
+  yellow   = "#d4a520";
+  blue     = "#4a7fa5";
+  red      = "#c0392b";
+  green    = "#5a8a3c";
 in
 {
   programs.waybar = {
@@ -23,17 +21,17 @@ in
     settings = [{
       layer    = "top";
       position = "top";
-      height   = 32;
-      spacing  = 4;
+      height   = 24;
+      spacing  = 0;
 
-      modules-left   = [ "sway/workspaces" "sway/mode" "sway/scratchpad" ];
+      modules-left   = [ "sway/workspaces" "sway/mode" ];
       modules-center = [ "sway/window" ];
       modules-right  = [
-        "pulseaudio"
-        "network"
         "cpu"
         "memory"
         "temperature"
+        "network"
+        "bluetooth"
         "clock"
         "tray"
       ];
@@ -41,26 +39,11 @@ in
       "sway/workspaces" = {
         disable-scroll = true;
         all-outputs    = true;
-        format         = "{icon}";
-        format-icons   = {
-          "1" = "󰲠"; "2" = "󰲢"; "3" = "󰲤"; "4" = "󰲦"; "5" = "󰲨";
-          "6" = "󰲪"; "7" = "󰲬"; "8" = "󰲮"; "9" = "󰲰"; "10" = "󰿬";
-          urgent   = "󰀨";
-          focused  = "";
-          default  = "";
-        };
+        format         = "{name}";
       };
 
       "sway/mode" = {
-        format = "<span style='italic'>{}</span>";
-      };
-
-      "sway/scratchpad" = {
-        format       = "{icon} {count}";
-        show-empty   = false;
-        format-icons = [ "" "" ];
-        tooltip      = true;
-        tooltip-format = "{app}: {title}";
+        format = " {}";
       };
 
       "sway/window" = {
@@ -68,18 +51,21 @@ in
       };
 
       clock = {
-        format         = " {:%H:%M}";
+        format         = "{:%H:%M}";
         format-alt     = "{:%Y-%m-%d}";
-        tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+        tooltip-format = "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>";
       };
 
       cpu = {
-        format  = " {usage}%";
-        tooltip = false;
+        format   = " {usage}%";
+        tooltip  = false;
+        interval = 2;
       };
 
       memory = {
-        format = " {}%";
+        format         = " {percentage}%";
+        tooltip-format = "{used:0.1f}G / {total:0.1f}G";
+        interval       = 5;
       };
 
       temperature = {
@@ -89,28 +75,28 @@ in
       };
 
       network = {
-        format-wifi        = " {signalStrength}%";
-        format-ethernet    = "󰈀 {ipaddr}";
-        format-linked      = "󰈀 (No IP)";
-        format-disconnected = "󰖪 Disconnected";
-        tooltip-format     = "{ifname}: {ipaddr}/{cidr}";
-        format-alt         = "{ifname}: {ipaddr}/{cidr}";
+        format-wifi         = " {signalStrength}%";
+        format-ethernet     = "󰈀 {ipaddr}";
+        format-linked       = "󰈀";
+        format-disconnected = "󰖪";
+        tooltip-format-wifi     = "{essid} ({signalStrength}%)\n{ipaddr}/{cidr}";
+        tooltip-format-ethernet = "{ifname}: {ipaddr}/{cidr}";
+        on-click            = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
       };
 
-      pulseaudio = {
-        format           = "{icon} {volume}%";
-        format-bluetooth = "{icon} {volume}%";
-        format-muted     = "󰝟";
-        format-icons     = {
-          headphone  = "";
-          headset    = "󰋎";
-          default    = [ "" "" "" ];
-        };
-        on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
+      bluetooth = {
+        format           = " {status}";
+        format-connected = " {device_alias}";
+        format-disabled  = " off";
+        tooltip-format   = "{controller_alias}\n{num_connections} connected";
+        tooltip-format-connected    = "{device_enumerate}";
+        tooltip-format-enumerate-connected = "{device_alias}";
+        on-click         = "${pkgs.blueman}/bin/blueman-manager";
       };
 
       tray = {
-        spacing = 10;
+        spacing   = 8;
+        icon-size = 14;
       };
     }];
 
@@ -119,19 +105,17 @@ in
         border:        none;
         border-radius: 0;
         font-family:   JetBrainsMono Nerd Font;
-        font-size:     13px;
+        font-size:     12px;
         min-height:    0;
       }
 
       window#waybar {
-        background-color: ${mantle};
+        background-color: rgba(10, 10, 10, 0.97);
         color:            ${text};
-        border-bottom:    2px solid ${surface0};
+        border-bottom:    1px solid ${surface1};
       }
 
-      .modules-left,
-      .modules-right,
-      .modules-center {
+      #workspaces {
         padding: 0 4px;
       }
 
@@ -139,9 +123,9 @@ in
         padding:          0 8px;
         background-color: transparent;
         color:            ${subtext1};
-        border-radius:    4px;
-        margin:           4px 2px;
-        transition:       all 0.15s ease;
+        border-bottom:    2px solid transparent;
+        border-radius:    0;
+        transition:       color 0.1s ease, border-color 0.1s ease;
       }
 
       #workspaces button:hover {
@@ -150,75 +134,68 @@ in
       }
 
       #workspaces button.focused {
-        background-color: ${surface0};
-        color:            ${rosewater};
-        border-bottom:    2px solid ${maroon};
+        color:         ${teal};
+        border-bottom: 2px solid ${teal};
       }
 
       #workspaces button.urgent {
-        background-color: ${red};
-        color:            ${text};
+        color: ${red};
       }
 
       #mode {
-        padding:          0 10px;
-        background-color: ${maroon};
-        color:            ${text};
-        border-radius:    4px;
-        margin:           4px 2px;
-      }
-
-      #scratchpad {
-        padding:          0 10px;
-        background-color: ${surface0};
-        color:            ${yellow};
-        border-radius:    4px;
-        margin:           4px 2px;
+        padding:       0 10px;
+        color:         ${yellow};
+        border-bottom: 2px solid ${yellow};
       }
 
       #window {
-        padding:    0 10px;
+        padding:    0 8px;
         color:      ${subtext1};
         font-style: italic;
       }
 
-      #clock,
       #cpu,
       #memory,
       #temperature,
       #network,
-      #pulseaudio,
+      #bluetooth,
+      #clock,
       #tray {
-        padding:          0 10px;
-        background-color: ${surface0};
-        color:            ${text};
-        border-radius:    4px;
-        margin:           4px 2px;
+        padding: 0 10px;
+        color:   ${text};
       }
 
-      #clock       { color: ${rosewater}; }
-      #cpu         { color: ${peach};     }
-      #memory      { color: ${yellow};    }
-      #temperature { color: ${green};     }
-      #network     { color: ${blue};      }
+      #cpu         { color: ${teal};    }
+      #memory      { color: ${yellow};  }
+      #temperature { color: ${green};   }
+      #network     { color: ${blue};    }
+      #bluetooth   { color: ${teal};    }
+      #clock       { color: ${text};    }
 
       #temperature.critical {
-        background-color: ${red};
-        color:            ${text};
+        color: ${red};
       }
 
-      #pulseaudio       { color: ${maroon};  }
-      #pulseaudio.muted { color: ${overlay0}; }
+      #network.disconnected {
+        color: ${overlay0};
+      }
 
-      #network.disconnected { color: ${overlay0}; }
+      #bluetooth.disabled,
+      #bluetooth.off {
+        color: ${overlay0};
+      }
+
+      #tray {
+        padding: 0 6px;
+      }
 
       #tray > .passive {
         -gtk-icon-effect: dim;
       }
 
       #tray > .needs-attention {
-        -gtk-icon-effect:  highlight;
-        background-color:  ${red};
+        -gtk-icon-effect: highlight;
+        color:            ${red};
       }
     '';
   };

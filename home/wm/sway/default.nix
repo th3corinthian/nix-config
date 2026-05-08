@@ -1,15 +1,21 @@
 { pkgs, lib, ... }:
 
-# Autumn Frappe palette — Catppuccin Frappe structure shifted to warm reds/maroons
+# Van Gogh Starry Night dark palette
 let
-  base      = "#2a1f1f";
-  surface0  = "#3d2b2b";
-  surface1  = "#4f3535";
-  overlay0  = "#7a5050";
-  text      = "#e8d5cb";
-  subtext0  = "#c0ab9f";
-  red       = "#d63d3d";
-  maroon    = "#b5262a";
+  bg       = "#0a0a0a";
+  surface0 = "#141414";
+  surface1 = "#1c1c1c";
+  overlay0 = "#383838";
+  text     = "#d0d0d0";
+  subtext0 = "#888888";
+  teal     = "#4ecdc4";
+  yellow   = "#d4a520";
+  red      = "#c0392b";
+
+  # ── WALLPAPER ──────────────────────────────────────────────────────────────
+  # Replace this path with your actual wallpaper (e.g. ~/Pictures/example.jpg)
+  wallpaper = "/home/corinthian/Documents/prog/nix/nix-config/assets/where_is_my_ear.jpg";
+  # ──────────────────────────────────────────────────────────────────────────
 
   swayPkgs = with pkgs; [
     libnotify
@@ -22,6 +28,7 @@ let
     wlr-randr
     swaylock
     swayidle
+    swaybg
     grim
     slurp
     brightnessctl
@@ -33,6 +40,7 @@ in
   imports = [
     ../../shared
     ../../programs/alacritty
+    ../../programs/kitty
     ../../programs/rofi
     ../../programs/waybar
   ];
@@ -42,8 +50,6 @@ in
     packages = swayPkgs;
   };
 
-
-  # Override the rofi package to the Wayland-native build
   programs.rofi.package = pkgs.rofi;
 
   wayland.windowManager.sway = {
@@ -67,34 +73,34 @@ in
       };
 
       window = {
-        border   = 2;
+        border   = 1;
         titlebar = false;
       };
 
       floating = {
-        border   = 2;
+        border   = 1;
         titlebar = false;
       };
 
       colors = {
         focused = {
           background  = surface0;
-          border      = maroon;
-          childBorder = maroon;
-          indicator   = red;
+          border      = teal;
+          childBorder = teal;
+          indicator   = teal;
           text        = text;
         };
         focusedInactive = {
-          background  = base;
-          border      = surface0;
-          childBorder = surface0;
+          background  = bg;
+          border      = surface1;
+          childBorder = surface1;
           indicator   = overlay0;
           text        = subtext0;
         };
         unfocused = {
-          background  = base;
-          border      = surface0;
-          childBorder = surface0;
+          background  = bg;
+          border      = surface1;
+          childBorder = surface1;
           indicator   = overlay0;
           text        = subtext0;
         };
@@ -108,7 +114,9 @@ in
       };
 
       output = {
-        "*" = { bg = "${base} solid_color"; };
+        # WALLPAPER: update the `wallpaper` variable at the top of this file
+        # Supported modes: fill, fit, stretch, center, tile
+        "*" = { bg = "${wallpaper} fill"; };
       };
 
       input = {
@@ -176,7 +184,7 @@ in
         # Sway control
         "${mod}+Shift+r" = "reload";
         "${mod}+Shift+e" = "exec swaynag -t warning -m 'Exit sway?' -B 'Yes' 'swaymsg exit'";
-        "${mod}+ctrl+l"  = "exec ${pkgs.swaylock}/bin/swaylock -c 2a1f1f";
+        "${mod}+ctrl+l"  = "exec ${pkgs.swaylock}/bin/swaylock -c 0a0a0a";
 
         # Resize mode
         "${mod}+r" = "mode resize";
@@ -222,17 +230,17 @@ in
   services.mako = {
     enable = true;
     settings = {
-      background-color  = "#2a1f1f";
-      border-color      = "#b5262a";
-      border-size       = 2;
+      background-color  = "#0e0e0e";
+      border-color      = "#4ecdc4";
+      border-size       = 1;
       border-radius     = 6;
-      text-color        = "#e8d5cb";
+      text-color        = "#d0d0d0";
       font              = "JetBrainsMono Nerd Font 10";
       default-timeout   = 5000;
       max-visible       = 5;
       "urgency=high" = {
-        background-color = "#3d2b2b";
-        border-color     = "#d63d3d";
+        background-color = "#141414";
+        border-color     = "#c0392b";
         default-timeout  = 0;
       };
     };
@@ -243,7 +251,7 @@ in
     timeouts = [
       {
         timeout = 300;
-        command = "${pkgs.swaylock}/bin/swaylock -c 2a1f1f";
+        command = "${pkgs.swaylock}/bin/swaylock -c 0a0a0a";
       }
       {
         timeout        = 600;
@@ -254,7 +262,7 @@ in
     events = [
       {
         event   = "before-sleep";
-        command = "${pkgs.swaylock}/bin/swaylock -c 2a1f1f";
+        command = "${pkgs.swaylock}/bin/swaylock -c 0a0a0a";
       }
     ];
   };

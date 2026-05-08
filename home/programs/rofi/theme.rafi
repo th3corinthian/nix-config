@@ -1,25 +1,26 @@
 * {
-    bg:        #2a1f1f;
-    surface:   #3d2b2b;
-    dim:       #7a5050;
-    fg:        #e8d5cb;
-    accent:    #f5c2a0;
-    green:     #8fa858;
-    amber:     #d4a846;
-    red:       #d63d3d;
-    maroon:    #b5262a;
+    bg:        rgba(10, 10, 10, 0.92);
+    surface:   rgba(20, 20, 20, 0.95);
+    dim:       #383838;
+    fg:        #d0d0d0;
+    subtext:   #888888;
+    accent:    #4ecdc4;
+    blue:      #4a7fa5;
+    yellow:    #d4a520;
+    red:       #c0392b;
+    green:     #5a8a3c;
 
     background-color: @bg;
     text-color:       @fg;
 }
 
 window {
-    height:        500;
-    width:         560;
-    border:        2;
-    border-radius: 6;
-    border-color:  @maroon;
-    background-color: @bg;
+    height:           500;
+    width:            560;
+    border:           1;
+    border-radius:    6;
+    border-color:     @dim;
+    background-color: rgba(10, 10, 10, 0.92);
 }
 
 mainbox {
@@ -29,7 +30,7 @@ mainbox {
 
 inputbar {
     padding:          10 14;
-    background-color: @bg;
+    background-color: transparent;
     text-color:       @fg;
     children:         [prompt, entry];
 }
@@ -45,7 +46,7 @@ entry, case-indicator {
 
 listview {
     padding:          6;
-    background-color: @bg;
+    background-color: transparent;
     dynamic:          false;
     lines:            10;
 }
@@ -53,32 +54,32 @@ listview {
 element {
     padding:          6 10;
     border-radius:    4;
-    background-color: @bg;
-    text-color:       @fg;
+    background-color: transparent;
+    text-color:       @subtext;
 }
 
 element selected.normal {
-    background-color: @surface;
+    background-color: rgba(20, 20, 20, 0.95);
     text-color:       @accent;
 }
 
 element normal.active, element alternate.active {
-    background-color: @surface;
-    text-color:       @amber;
+    background-color: rgba(20, 20, 20, 0.95);
+    text-color:       @yellow;
 }
 
 element selected.active {
-    background-color: @surface;
+    background-color: rgba(20, 20, 20, 0.95);
     text-color:       @green;
 }
 
 element normal.urgent, element alternate.urgent {
-    background-color: @surface;
+    background-color: rgba(20, 20, 20, 0.95);
     text-color:       @red;
 }
 
 element selected.urgent {
-    background-color: @surface;
+    background-color: rgba(20, 20, 20, 0.95);
     text-color:       @red;
 }
 
@@ -91,5 +92,5 @@ element-text, element-icon {
 
 scrollbar {
     handle-color:     @dim;
-    background-color: @bg;
+    background-color: transparent;
 }

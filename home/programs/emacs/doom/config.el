@@ -85,3 +85,6 @@
   (claude-code-ide-emacs-tools-setup)) ; Optionally enable Emacs MCP tools
 
 (setq org-roam-directory (file-truename "~/Documents/org-roam"))
+
+;; Background-only transparency (text remains fully opaque); requires Emacs 29+
+(add-to-list 'default-frame-alist '(alpha-background . 88))
