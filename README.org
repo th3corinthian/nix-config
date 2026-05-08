@@ -235,3 +235,5 @@ nix flake update
 # Update a single input
 nix flake update nixpkgs
 #+END_SRC
+
+** Credits
