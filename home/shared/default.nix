@@ -63,6 +63,9 @@ let
     rustc
     gcc
 
+    ghidra
+
+
     android-studio
     claude-code
     claude-monitor

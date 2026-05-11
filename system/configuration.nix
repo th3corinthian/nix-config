@@ -104,6 +104,9 @@ in
     "en_US.UTF-8/UTF-8"
     "zh_CN.UTF-8/UTF-8"
     "zh_TW.UTF-8/UTF-8"
+    "ru_RU.UTF-8/UTF-8"
+    "de_DE.UTF-8/UTF-8"
+    "he_IL.UTF-8/UTF-8"
   ];
 
   i18n.inputMethod = {
@@ -240,6 +243,7 @@ in
     font-awesome
     myfonts.flags-world-color
     myfonts.icomoon-feather
+    noto-fonts          # covers Hebrew, Arabic, Cyrillic, and other scripts
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
     source-han-sans

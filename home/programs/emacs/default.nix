@@ -9,7 +9,7 @@
   home.packages = with pkgs; [
     ripgrep
     fd
-    (aspellWithDicts (dicts: [ dicts.en ]))
+    (aspellWithDicts (dicts: [ dicts.en dicts.ru dicts.de ]))
     imagemagick
     sqlite
   ];

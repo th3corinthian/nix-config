@@ -88,3 +88,57 @@
 
 ;; Background-only transparency (text remains fully opaque); requires Emacs 29+
 (add-to-list 'default-frame-alist '(alpha-background . 88))
+
+;;; --- Multilingual ---
+
+(set-language-environment "UTF-8")
+
+;; JetBrainsMono Nerd Font already covers Latin + Cyrillic (Russian, German).
+;; Noto fills in CJK (Mandarin) and Hebrew where the primary font has no glyphs.
+(when (display-graphic-p)
+  (set-fontset-font t 'han "Noto Sans CJK SC")
+  (set-fontset-font t 'cjk-misc "Noto Sans CJK SC")
+  (set-fontset-font t 'hebrew "Noto Sans Hebrew"))
+
+;; Allow Emacs to auto-detect paragraph direction per-paragraph so Hebrew
+;; RTL text is visually reordered correctly alongside LTR content.
+(setq-default bidi-paragraph-direction nil)
+
+;; Input method switchers — SPC L <key>
+(defun my/im-russian ()
+  (interactive)
+  (set-input-method "russian-computer")
+  (message "Input: Russian (Йцукен)"))
+
+(defun my/im-chinese ()
+  (interactive)
+  (set-input-method "pyim")
+  (message "Input: Chinese (拼音)"))
+
+(defun my/im-hebrew ()
+  (interactive)
+  (set-input-method "hebrew")
+  (message "Input: Hebrew (עברית)"))
+
+(defun my/im-german ()
+  (interactive)
+  (set-input-method "german-postfix")
+  (message "Input: German (Deutsch)"))
+
+(defun my/im-off ()
+  (interactive)
+  (deactivate-input-method)
+  (message "Input: English"))
+
+(map! :leader
+      (:prefix ("L" . "language")
+       :desc "English (off)"    "e" #'my/im-off
+       :desc "Russian"          "r" #'my/im-russian
+       :desc "Chinese (pyim)"   "c" #'my/im-chinese
+       :desc "Hebrew"           "h" #'my/im-hebrew
+       :desc "German"           "d" #'my/im-german
+       :desc "Toggle IME"       "t" #'toggle-input-method))
+
+;; pyim: standard full-pinyin; Doom's chinese module enables pyim-basedict.
+(with-eval-after-load 'pyim
+  (setq pyim-default-scheme 'quanpin))
