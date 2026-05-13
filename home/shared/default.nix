@@ -65,6 +65,8 @@ let
 
     ghidra
 
+    godot
+    blender
 
     android-studio
     claude-code
