@@ -69,6 +69,10 @@ let
     blender
 
     yazi
+    p7zip
+    poppler
+    resvg
+    imagemagick
 
     android-studio
     claude-code

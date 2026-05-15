@@ -9,7 +9,7 @@ let
     mononoki
   ];
 
-  myfonts = pkgs.callPackage fonts/default.nix { inherit pkgs; };
+  #myfonts = pkgs.callPackage fonts/default.nix { inherit pkgs; };
 
   #nixpkgs.config.allowBroken = true;
   #nixpkgs.config.allowUnsupportedSystem = true;
@@ -239,8 +239,8 @@ in
 
   # Making fonts accessible to applications.
   fonts.packages = with pkgs; [
-    myfonts.flags-world-color
-    myfonts.icomoon-feather
+    #myfonts.flags-world-color
+    #myfonts.icomoon-feather
     noto-fonts          # covers Hebrew, Arabic, Cyrillic, and other scripts
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
