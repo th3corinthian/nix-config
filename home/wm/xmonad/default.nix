@@ -105,15 +105,16 @@ in
 
   xsession = {
     enable = true;
+    scriptPath = ".xinitrc";
 
     initExtra = extra + polybarOpts;
 
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
-      extraPackages = hp: [
-        hp.dbus
-        hp.monad-logger
+      extraPackages = hpkgs: [
+        hpkgs.xmonad-contrib
+        hpkgs.xmonad-extras
       ];
       config = ./config.hs;
     };

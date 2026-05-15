@@ -43,10 +43,9 @@
         Option "OffTime"     "0"
       '';
 
-      windowManager.xmonad = {
-        enable = true;
-        enableContribAndExtras = true;
-      };
+      videoDrivers = [ "modesetting" ];
+
+      displayManager.startx.enable = true;
 
       xkb = {
         extraLayouts.us-custom = {
@@ -61,11 +60,18 @@
     };
   };
 
-  hardware.bluetooth = {
-    enable = true;
-    settings = {
-      General = {
-        Enable = "Source,Sink,Media,Socket";
+  hardware = {
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [ intel-vaapi-driver libva-vdpau-driver libvdpau-va-gl ];
+    };
+
+    bluetooth = {
+      enable = true;
+      settings = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
+        };
       };
     };
   };
