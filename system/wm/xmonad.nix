@@ -44,6 +44,10 @@
       '';
 
       videoDrivers = [ "modesetting" ];
+      deviceSection = ''
+        Option "DRI"         "2"
+        Option "AccelMethod" "none"
+      '';
 
       displayManager.startx.enable = true;
 

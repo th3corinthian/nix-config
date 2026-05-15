@@ -1,7 +1,12 @@
 {
   services.picom = {
     enable = true;
-    backend = "glx";
+    backend = "xrender";
+    vSync = true;
+    settings = {
+    xrender-sync-fence = true;
+    };
+
     fade = true;
     fadeDelta = 5;
     #cornerRadius = 10;

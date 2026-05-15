@@ -246,14 +246,32 @@ in
     #noto-fonts-cjk-serif
     #source-han-sans
     #source-han-serif
+    inter # proper sans-serif
     noto-fonts-color-emoji
   ] ++ customFonts;
 
-  fonts.fontconfig.defaultFonts = {
-    monospace = [ "Mononoki Nerd Font Mono"  "Noto Color Emoji" ];
-    sansSerif = [ "Mononoki Nerd Font Mono"  "Noto Color Emoji" ];
-    serif     = [ "Mononoki Nerd Font Mono"  "Noto Color Emoji" ];
-    emoji     = [ "Noto Color Emoji" ];
+  fonts.fontconfig = {
+    enable = true;
+    antialias = true;
+
+    hinting = {
+      enable = true;
+      autohint = false;
+      style = "slight";
+    };
+
+    subpixel = {
+      rgba = "rgb";
+      lcdfilter = "default";
+    };
+
+    defaultFonts = {
+      #monospace = [ "DejaVu Sans Mono" ];
+      monospace = [ "Mononoki Nerd Font Mono"  "Noto Color Emoji" ];
+      sansSerif = [ "Inter"                    "Noto Color Emoji" ];
+      serif     = [ "Inter"                    "Noto Color Emoji" ];
+      emoji     = [ "Noto Color Emoji" ];
+    };
   };
 
   programs.fish.enable = true;

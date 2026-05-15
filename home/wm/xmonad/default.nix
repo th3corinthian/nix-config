@@ -121,7 +121,7 @@ in
   };
 
   xresources.properties = {
-    "Xft.dpi" = 90;
+    "Xft.dpi" = 96;
     "Xft.autohint" = 0;
     "Xft.hintstyle" = "hintslight";
     "Xft.hinting" = 1;
