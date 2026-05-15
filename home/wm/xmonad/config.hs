@@ -7,19 +7,19 @@ import XMonad.Hooks.StatusBar        (withSB, statusBarProp)
 import XMonad.Hooks.StatusBar.PP     (def, wrap)
 
 myLayout = avoidStruts $
-           gaps [(U,6), (R,6), (D,6), (L,6)] $
+           gaps [(U,40), (R,8), (D,8), (L,8)] $
            Tall 1 (3/100) (1/2) ||| Full
 
 myXmobarPP :: PP
 myXmobarPP = def
-  { ppSep             = xmobarColor "#4b5263" "" "  ·  "
-  , ppCurrent         = xmobarColor "#7aa2d4" "" . wrap "[" "]"
-  , ppVisible         = xmobarColor "#7aa2d4" ""
-  , ppHidden          = xmobarColor "#c8ccd4" ""
-  , ppHiddenNoWindows = xmobarColor "#4b5263" ""
-  , ppUrgent          = xmobarColor "#be5046" "" . wrap "!" "!"
-  , ppTitle           = xmobarColor "#c8ccd4" "" . shorten 50
-  , ppLayout          = xmobarColor "#7aa2d4" ""
+  { ppSep             = xmobarColor "#3d2b2b" ""  "  ·  "
+  , ppCurrent         = xmobarColor "#b5262a" "" . wrap "[" "]"
+  , ppVisible         = xmobarColor "#d4a846" ""
+  , ppHidden          = xmobarColor "#e8d5cb" ""
+  , ppHiddenNoWindows = xmobarColor "#3d2b2b" ""
+  , ppUrgent          = xmobarColor "#d63d3d" "" . wrap "!" "!"
+  , ppTitle           = xmobarColor "#e8d5cb" "" . shorten 50
+  , ppLayout          = xmobarColor "#d4a846" ""
   }
 
 main :: IO ()
@@ -27,10 +27,12 @@ main = xmonad
      . withSB (statusBarProp "xmobar" (pure myXmobarPP))
      . docks
      $ def
-  { layoutHook  = myLayout
-  , terminal    = "alacritty"
-  , modMask     = mod4Mask
-  , borderWidth = 1
+  { layoutHook         = myLayout
+  , terminal           = "alacritty"
+  , modMask            = mod4Mask
+  , borderWidth        = 2
+  , focusedBorderColor = "#b5262a"
+  , normalBorderColor  = "#3d2b2b"
   , startupHook =
       spawn "nitrogen --set-zoom-fill ~/.wallpapers/my-wallpaper.jpg" <>
       spawn "picom --config /home/corinthian/.config/picom/picom.conf"
