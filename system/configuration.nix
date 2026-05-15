@@ -250,9 +250,9 @@ in
   ] ++ customFonts;
 
   fonts.fontconfig.defaultFonts = {
-    monospace = [ "Mononoki Nerd Font Mono" ];
-    sansSerif = [ "Mononoki Nerd Font Mono" ];
-    serif     = [ "Mononoki Nerd Font Mono" ];
+    monospace = [ "Mononoki Nerd Font Mono"  "Noto Color Emoji" ];
+    sansSerif = [ "Mononoki Nerd Font Mono"  "Noto Color Emoji" ];
+    serif     = [ "Mononoki Nerd Font Mono"  "Noto Color Emoji" ];
     emoji     = [ "Noto Color Emoji" ];
   };
 
