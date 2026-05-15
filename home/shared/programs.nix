@@ -91,5 +91,6 @@ in
   #../programs/neofetch
   ../programs/ngrok
   ../programs/emacs
+  ../programs/yazi
   more
 ]

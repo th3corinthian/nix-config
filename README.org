@@ -39,8 +39,8 @@ This repository holds my personal NixOS configuration, managed with flakes for f
 │   │   ├── thinkpad-x220/     # GRUB, latest kernel, xmonad WM
 │   │   └── navi/              # systemd-boot, NVIDIA drivers, Sway WM
 │   └── wm/
-│       ├── xmonad.nix         # X11, xserver, keyboard layout
-│       └── sway.nix           # Wayland/Sway, greetd, pipewire, XDG portal
+│       ├── xmonad.nix         # X11, xserver, greetd/tuigreet, keyboard layout
+│       └── sway.nix           # Wayland/Sway, greetd/tuigreet, pipewire, XDG portal
 └── home/
     ├── shared/                # base packages and programs (all profiles)
     ├── programs/              # per-program home-manager configs
@@ -50,7 +50,8 @@ This repository holds my personal NixOS configuration, managed with flakes for f
     │   ├── git/
     │   ├── rofi/
     │   ├── waybar/
-    │   └── xmobar/
+    │   ├── xmobar/
+    │   └── yazi/
     ├── services/              # user systemd services
     │   ├── gpg-agent/
     │   ├── picom/
@@ -83,7 +84,7 @@ home-manager switch --flake .#sway
 ** Window Managers
 
 *** XMonad (ThinkPad X220)
-xmonad with =xmonad-contrib=. Layout is =Tall ||| Full= with screen-edge gaps and =avoidStruts= to respect the bar.
+xmonad with =xmonad-contrib=. Layout is =Tall ||| Full= with uniform 8px screen-edge gaps and =avoidStruts= to respect the bar. Login is handled by =greetd= with =tuigreet=.
 
 Keybinds:
 | Key                    | Action                |
@@ -99,7 +100,7 @@ Keyboard layout: US with Caps Lock remapped to Ctrl (=ctrl:nocaps=).
 Status bar with a dark theme. Displays workspace/layout info piped from xmonad, CPU usage, memory, battery states, and date/time. Spawned by xmonad via the =withSB= / =statusBarProp= API.
 
 *** Sway (navi)
-Wayland compositor with vim-style focus/move keybindings (h/j/k/l), inner/outer gaps, and the Autumn Frappe color palette. Autologin via greetd; screen locks with swaylock at 5 min idle, display off at 10 min (swayidle).
+Wayland compositor with vim-style focus/move keybindings (h/j/k/l), inner/outer gaps, and the Autumn Frappe color palette. Login via =greetd= / =tuigreet= with autologin; screen locks with swaylock at 5 min idle, display off at 10 min (swayidle).
 
 Keybinds:
 | Key                    | Action                  |
@@ -180,6 +181,7 @@ Managed declaratively per-user; all profiles inherit these.
 | =gimp=             | Image editor                         |
 | =libreoffice=      | Office suite                         |
 | =maltego=          | Network OSINT / link analysis        |
+| =yazi=             | TUI file manager (bleeding-edge flake) |
 | =ripgrep=, =fd=, =eza= | Modern CLI replacements          |
 | =fzf=, =zoxide=, =bat=, =broot= | Shell navigation & viewing |
 | =bottom=, =htop=   | Process/system monitors              |
@@ -214,8 +216,9 @@ All hosts inherit =system/configuration.nix=, which provides:
 - *Input method*: fcitx5 with =fcitx5-rime= and =fcitx5-chinese-addons= for Chinese
 - *Shell*: fish (system-wide, default for =corinthian=)
 - *GPG*: =gnupg.agent= with SSH support
+- *Git*: =GIT_ASKPASS= and =SSH_ASKPASS= unset; credential prompts stay in-terminal with no popup
 - *Printing*: CUPS with Epson ESC/P-R driver
-- *Fonts*: JetBrainsMono + Iosevka Nerd Fonts, Noto CJK, Source Han, custom icon fonts
+- *Fonts*: Mononoki Nerd Font (system-wide monospace), Noto CJK, Source Han, custom icon fonts (=flags-world-color=, =icomoon-feather=)
 - *Nix daemon*: weekly GC (7-day retention), auto-optimise store, flakes + ca-derivations, Garnix binary cache
 - *Activation diff*: =nvd= diff report on every =nixos-rebuild switch=
 - *Secrets*: SOPS-nix with age keys derived from each machine's SSH host key

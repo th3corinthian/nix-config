@@ -24,7 +24,15 @@
       pulse.enable = true;
     };
 
-    displayManager.defaultSession = "none+xmonad";
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd startx";
+          user = "greeter";
+        };
+      };
+    };
 
     xserver = {
       enable = true;

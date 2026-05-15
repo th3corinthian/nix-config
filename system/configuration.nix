@@ -6,8 +6,7 @@
 
 let
   customFonts = with (pkgs.nerd-fonts); [
-    jetbrains-mono
-    iosevka
+    mononoki
   ];
 
   myfonts = pkgs.callPackage fonts/default.nix { inherit pkgs; };
@@ -240,7 +239,6 @@ in
 
   # Making fonts accessible to applications.
   fonts.packages = with pkgs; [
-    font-awesome
     myfonts.flags-world-color
     myfonts.icomoon-feather
     noto-fonts          # covers Hebrew, Arabic, Cyrillic, and other scripts
@@ -249,6 +247,12 @@ in
     source-han-sans
     source-han-serif
   ] ++ customFonts;
+
+  fonts.fontconfig.defaultFonts = {
+    monospace = [ "Mononoki Nerd Font Mono" ];
+    sansSerif = [ "Noto Sans" ];
+    serif     = [ "Noto Serif" ];
+  };
 
   programs.fish.enable = true;
 

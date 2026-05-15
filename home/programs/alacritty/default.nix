@@ -25,8 +25,8 @@
       };
       font = {
         normal = {
-          family = "JetBrainsMono Nerd Font";
-          style = "Small";
+          family = "Mononoki Nerd Font Mono";
+          style = "Regular";
         };
         #size = config.programs.alacritty.fontsize;
       };

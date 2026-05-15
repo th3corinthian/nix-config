@@ -122,7 +122,7 @@ in
   xresources.properties = {
     "Xft.dpi" = 90;
     "Xft.autohint" = 0;
-    "Xft.hintstyle" = "hintfull";
+    "Xft.hintstyle" = "hintslight";
     "Xft.hinting" = 1;
     "Xft.antialias" = 1;
     "Xft.rgba" = "rgb";

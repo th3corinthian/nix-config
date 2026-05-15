@@ -28,6 +28,8 @@ let
 
     nix-search = inputs.nix-search.packages.${system}.default;
 
+    yazi = inputs.yazi.packages.${system}.default;
+
     treesitterGrammars = ts: ts.withPlugins (p: [
       p.tree-sitter-c
       p.tree-sitter-nix

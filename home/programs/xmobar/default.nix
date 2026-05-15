@@ -5,7 +5,7 @@
 
   xdg.configFile."xmobar/xmobarrc".text = ''
     Config
-      { font             = "xft:JetBrainsMono Nerd Font:size=10:antialias=true"
+      { font             = "xft:Mononoki Nerd Font:size=10:antialias=true:hinting=true:hintstyle=hintslight"
       , bgColor          = "#2a1f1f"
       , fgColor          = "#e8d5cb"
       , alpha            = 210

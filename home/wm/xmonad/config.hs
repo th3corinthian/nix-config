@@ -7,7 +7,7 @@ import XMonad.Hooks.StatusBar        (withSB, statusBarProp)
 import XMonad.Hooks.StatusBar.PP     (def, wrap)
 
 myLayout = avoidStruts $
-           gaps [(U,40), (R,8), (D,8), (L,8)] $
+           gaps [(U,8), (R,8), (D,8), (L,8)] $
            Tall 1 (3/100) (1/2) ||| Full
 
 myXmobarPP :: PP

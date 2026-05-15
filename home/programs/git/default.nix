@@ -13,6 +13,7 @@
     userName = "Sam Feldman";
     userEmail = "sam.feldman724@proton.me";
     settings = {
+      core.askPass = "";
       alias = {
         amend = "commit --amend -m";
         fixup = "!f(){ git reset --soft HEAD~\${1} && git commit --amend -C HEAD; };f";

@@ -68,6 +68,8 @@ let
     godot
     blender
 
+    yazi
+
     android-studio
     claude-code
     claude-monitor
@@ -103,8 +105,8 @@ in
       GTK_IM_MODULE = "fcitx";
       QT_IM_MODULE = "fcitx";
       XMODIFIERS = "@im=fcitx";
-      # https://github.com/NixOS/nixpkgs/issues/24311#issuecomment-980477051
-      #GIT_ASKPASS = "";
+      GIT_ASKPASS = "";
+      SSH_ASKPASS = "";
     };
   };
 
