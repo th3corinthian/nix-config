@@ -272,6 +272,24 @@ in
       serif     = [ "Inter"                    "Noto Color Emoji" ];
       emoji     = [ "Noto Color Emoji" ];
     };
+
+  localConf = ''
+      <?xml version="1.0"?>
+      <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+      <fontconfig>
+        <match target="pattern">
+          <test qual="any" name="family">
+            <string>Mononoki Nerd Font Mono</string>
+          </test>
+          <edit name="family" mode="assign" binding="strong">
+            <string>Mononoki Nerd Font Mono</string>
+          </edit>
+          <edit name="spacing" mode="assign">
+            <int>100</int>
+          </edit>
+        </match>
+      </fontconfig>
+    '';
   };
 
   programs.fish.enable = true;
