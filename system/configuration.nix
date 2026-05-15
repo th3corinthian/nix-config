@@ -241,17 +241,19 @@ in
   fonts.packages = with pkgs; [
     #myfonts.flags-world-color
     #myfonts.icomoon-feather
-    noto-fonts          # covers Hebrew, Arabic, Cyrillic, and other scripts
-    noto-fonts-cjk-sans
-    noto-fonts-cjk-serif
-    source-han-sans
-    source-han-serif
+    #noto-fonts          # covers Hebrew, Arabic, Cyrillic, and other scripts
+    #noto-fonts-cjk-sans
+    #noto-fonts-cjk-serif
+    #source-han-sans
+    #source-han-serif
+    noto-fonts-color-emoji
   ] ++ customFonts;
 
   fonts.fontconfig.defaultFonts = {
     monospace = [ "Mononoki Nerd Font Mono" ];
-    sansSerif = [ "Noto Sans" ];
-    serif     = [ "Noto Serif" ];
+    sansSerif = [ "Mononoki Nerd Font Mono" ];
+    serif     = [ "Mononoki Nerd Font Mono" ];
+    emoji     = [ "Noto Color Emoji" ];
   };
 
   programs.fish.enable = true;

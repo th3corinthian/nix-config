@@ -5,57 +5,72 @@
 
   xdg.configFile."xmobar/xmobarrc".text = ''
     Config
-      { font             = "xft:Mononoki Nerd Font:size=10:antialias=true:hinting=true:hintstyle=hintslight"
+      { font             = "xft:Mononoki Nerd Font Mono:size=3:antialias=true:hinting=true:hintstyle=hintslight"
+      , additionalFonts  = [ "xft:Mononoki Nerd Font Mono:size=13:antialias=true" ]
       , bgColor          = "#0d1b2a"
       , fgColor          = "#c8e6f5"
       , alpha            = 210
-      , position         = Static { xpos = 8, ypos = 6, width = 1350, height = 28 }
+      , position         = Static { xpos = 8, ypos = 6, width = 1350, height = 30 }
       , lowerOnStart     = True
       , hideOnStart      = False
       , allDesktops      = True
       , persistent       = True
       , border           = NoBorder
 
-      , commands =
-          [ Run XMonadLog
+       , commands =
+                    [
+                      Run XMonadLog
 
-          , Run Battery
-              [ "--template", "<acstatus>"
-              , "--Low",      "20"
-              , "--High",     "80"
-              , "--low",      "#e57373"
-              , "--normal",   "#ffb74d"
-              , "--high",     "#81c784"
-              , "--"
-              , "-o", "<left>% (<timeleft>)"
-              , "-O", "chg <left>%"
-              , "-i", "full"
-              ] 60
+                    , Run Cpu [ "--template", "<fc=#a9a1e1><fn=1></fn></fc> <total>%"
+                              , "--Low","3"
+                              , "--High","50"
+                              , "--low","#bbc2cf"
+                              , "--normal","#bbc2cf"
+                              , "--high","#fb4934"] 30
 
-          , Run Cpu
-              [ "--template", "<total>%"
-              , "--Low",      "30"
-              , "--High",     "70"
-              , "--low",      "#81c784"
-              , "--normal",   "#ffb74d"
-              , "--high",     "#e57373"
-              ] 20
+                    , Run Memory ["-t","<fc=#51afef><fn=1></fn></fc> <usedratio>%"
+                                 ,"-H","80"
+                                 ,"-L","10"
+                                 ,"-l","#bbc2cf"
+                                 ,"-n","#bbc2cf"
+                                 ,"-h","#fb4934"] 30
 
-          , Run Memory
-              [ "--template", "<usedratio>%"
-              , "--Low",      "50"
-              , "--High",     "80"
-              , "--low",      "#81c784"
-              , "--normal",   "#ffb74d"
-              , "--high",     "#e57373"
-              ] 20
+                    , Run Date "<fc=#ECBE7B><fn=1></fn></fc> %a %b %_d %I:%M" "date" 300
+                    , Run DynNetwork ["-t","<fc=#4db5bd><fn=1></fn></fc> <rx>, <fc=#c678dd><fn=1></fn></fc> <tx>"
+                                     ,"-H","200"
+                                     ,"-L","10"
+                                     ,"-h","#bbc2cf"
+                                     ,"-l","#bbc2cf"
+                                     ,"-n","#bbc2cf"] 30
 
-          , Run Date "<fc=#90caf9> %a %d %b   %H:%M</fc>" "date" 60
-          ]
+                    , Run CoreTemp ["-t", "<fc=#CDB464><fn=1></fn></fc> <core0>°"
+                                   , "-L", "30"
+                                   , "-H", "75"
+                                   , "-l", "lightblue"
+                                   , "-n", "#bbc2cf"
+                                   , "-h", "#aa4450"] 30
 
-      , sepChar  = "%"
-      , alignSep = "}{"
-      , template = "  %XMonadLog%  }{ <fc=#4fc3f7></fc> %cpu%  <fc=#2980b9>|</fc>  <fc=#4fc3f7></fc> %memory%  <fc=#2980b9>|</fc>  <fc=#4fc3f7></fc> %battery%  <fc=#2980b9>|</fc>  %date%  "
+                    -- battery monitor
+                    , Run BatteryP       [ "BAT0" ]
+                                         [ "--template" , "<fc=#B1DE76><fn=1></fn></fc> <acstatus>"
+                                         , "--Low"      , "10"        -- units: %
+                                         , "--High"     , "80"        -- units: %
+                                         , "--low"      , "#fb4934" -- #ff5555
+                                         , "--normal"   , "#bbc2cf"
+                                         , "--high"     , "#98be65"
+
+                                         , "--" -- battery specific options
+                                                   -- discharging status
+                                                   , "-o"   , "<left>% (<timeleft>)"
+                                                   -- AC "on" status
+                                                   , "-O"   , "<left>% (<fc=#98be65>Charging</fc>)" -- 50fa7b
+                                                   -- charged status
+                                                   , "-i"   , "<fc=#98be65>Charged</fc>"
+                                         ] 30
+                                         ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "| %XMonadLog% }{ %cpu% | %coretemp% | %memory% | %battery% | %dynnetwork% | %date%  |"   -- #69DFFA
       }
   '';
 }
