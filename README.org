@@ -13,7 +13,7 @@ This repository holds my personal NixOS configuration, managed with flakes for f
 #+BEGIN_SRC
 ├───homeConfigurations
 │   ├───xmonad             # ThinkPad X220 — xmonad + xmobar
-│   └───sway               # navi — Sway (Wayland)
+│   └───hyprland           # navi — Hyprland (Wayland)
 ├───nixosConfigurations
 │   ├───thinkpad-x220      # ThinkPad X220
 │   └───navi               # AMD desktop with NVIDIA GPU
@@ -37,10 +37,10 @@ This repository holds my personal NixOS configuration, managed with flakes for f
 │   ├── virtualisation.nix     # KVM/QEMU and Docker
 │   ├── hosts/
 │   │   ├── thinkpad-x220/     # GRUB, latest kernel, xmonad WM
-│   │   └── navi/              # systemd-boot, NVIDIA drivers, Sway WM
+│   │   └── navi/              # systemd-boot, NVIDIA drivers, Hyprland WM
 │   └── wm/
 │       ├── xmonad.nix         # X11, xserver, greetd/tuigreet, keyboard layout
-│       └── sway.nix           # Wayland/Sway, greetd/tuigreet, pipewire, XDG portal
+│       └── hyprland.nix       # Wayland/Hyprland, ly greeter, pipewire, XDG portal
 └── home/
     ├── shared/                # base packages and programs (all profiles)
     ├── programs/              # per-program home-manager configs
@@ -58,7 +58,7 @@ This repository holds my personal NixOS configuration, managed with flakes for f
     │   └── udiskie/
     └── wm/
         ├── xmonad/            # xmonad config.hs, xmobar PP wiring
-        └── sway/              # Sway compositor, waybar, mako, swayidle
+        └── hyprland/          # Hyprland compositor, hyprlock, hypridle, waybar, mako
 #+END_SRC
 
 ** Hosts
@@ -73,12 +73,12 @@ home-manager switch --flake .#xmonad
 #+END_SRC
 
 *** navi (AMD Desktop)
-AMD CPU + NVIDIA GPU desktop. UEFI with systemd-boot, latest kernel. Runs Sway (Wayland). NVIDIA is configured for Wayland via DRM KMS, Vulkan renderer, and the GBM provider. Also runs a Jellyfin media server accessible via Tailscale/LAN.
+AMD CPU + NVIDIA GPU desktop. UEFI with systemd-boot, latest kernel. Runs Hyprland (Wayland), tracked from upstream via a flake input for bleeding-edge updates. NVIDIA is configured for Wayland via DRM KMS with the GBM allocator (=GBM_BACKEND=nvidia-drm=) and the direct NVDEC backend. Also runs a Jellyfin media server accessible via Tailscale/LAN.
 
 To apply:
 #+BEGIN_SRC bash
 sudo nixos-rebuild switch --flake .#navi
-home-manager switch --flake .#sway
+home-manager switch --flake .#hyprland
 #+END_SRC
 
 ** Window Managers
@@ -99,45 +99,56 @@ Keyboard layout: US with Caps Lock remapped to Ctrl (=ctrl:nocaps=).
 *** Xmobar
 Status bar with a dark theme. Displays workspace/layout info piped from xmonad, CPU usage, memory, battery states, and date/time. Spawned by xmonad via the =withSB= / =statusBarProp= API.
 
-*** Sway (navi)
-Wayland compositor with vim-style focus/move keybindings (h/j/k/l), inner/outer gaps, and the Autumn Frappe color palette. Login via =greetd= / =tuigreet= with autologin; screen locks with swaylock at 5 min idle, display off at 10 min (swayidle).
+*** Hyprland (navi)
+Wayland compositor with vim-style focus/move keybindings (h/j/k/l), inner/outer gaps (6/10 px), 10 px window rounding, and a teal→amber border gradient on the focused window. Sourced bleeding-edge from the upstream Hyprland flake (=inputs.hyprland=) and overlaid into =pkgs.hyprland= so both the system module and home-manager pick it up. Login via =ly= (TUI display manager) with the =matrix= animation; screen locks with =hyprlock= at 5 min idle, display off at 10 min (=hypridle=).
 
 Keybinds:
-| Key                    | Action                  |
-|------------------------+-------------------------|
-| =Super + Return=       | Launch Alacritty        |
-| =Super + d=            | Rofi app launcher       |
-| =Super + p=            | Rofi run launcher       |
-| =Super + Shift + q=    | Close window            |
-| =Super + f=            | Fullscreen toggle       |
-| =Super + h/j/k/l=      | Focus left/down/up/right|
-| =Super + Shift + h/j/k/l= | Move window          |
-| =Super + r=            | Resize mode             |
-| =Super + Ctrl + l=     | Lock screen             |
-| =Print=                | Full screenshot         |
-| =Shift + Print=        | Region screenshot       |
+| Key                       | Action                  |
+|---------------------------+-------------------------|
+| =Super + Return=          | Launch Alacritty        |
+| =Super + Shift + Return=  | Launch Kitty            |
+| =Super + d=               | Rofi app launcher       |
+| =Super + p=               | Rofi run launcher       |
+| =Super + Shift + q=       | Close window            |
+| =Super + f=               | Fullscreen toggle       |
+| =Super + Shift + space=   | Toggle floating         |
+| =Super + h/j/k/l=         | Focus left/down/up/right|
+| =Super + Shift + h/j/k/l= | Move window             |
+| =Super + minus=           | Toggle scratchpad       |
+| =Super + Shift + minus=   | Send to scratchpad      |
+| =Super + Ctrl + l=        | Lock screen (hyprlock)  |
+| =Super + Shift + r=       | Reload Hyprland         |
+| =Super + Shift + e=       | Exit Hyprland           |
+| =Print=                   | Full screenshot         |
+| =Shift + Print=           | Region screenshot       |
 
 *** Waybar
-Top bar for Sway: workspaces, window title, clock, CPU, memory, temperature, network, and audio. Themed with the Autumn Frappe palette.
+Top bar for Hyprland: workspaces (=hyprland/workspaces=), window title, clock, CPU, memory, temperature, network, bluetooth, battery, and tray. Bound to =hyprland-session.target= so it starts reliably at login and survives =hyprctl reload=.
+
+*** Hyprlock
+Wayland-native lock screen. Blurred wallpaper background, large clock, teal input field with amber check / red fail tints — same palette as the rest of the rice.
+
+*** Hypridle
+Idle daemon. Locks via =loginctl lock-session= at 5 min, =dpms off= at 10 min. Hooks =before-sleep= and =after-sleep= so the lock survives suspend/resume cleanly.
 
 *** Rofi
-Application launcher on both profiles. On Sway, uses =rofi-wayland= (Wayland-native). Themed to match the Autumn Frappe palette with maroon accents.
+Application launcher on both profiles. On Hyprland, uses =rofi-wayland= (Wayland-native).
 
 *** Mako
-Notification daemon for Sway. Autumn Frappe palette; high-urgency notifications persist until dismissed.
+Notification daemon for Hyprland. Van Gogh palette; high-urgency notifications persist until dismissed.
 
-*** Color Palette — Autumn Frappe
-Catppuccin Frappe structure shifted to warm reds/maroons, applied across Sway, waybar, rofi, and mako.
+*** Color Palette — Van Gogh Starry Night
+Dark base with teal primary and amber secondary, applied across Hyprland, waybar, hyprlock, rofi, and mako.
 
-| Name       | Hex       | Role                               |
-|------------+-----------+------------------------------------|
-| =base=     | =#2a1f1f= | Background                         |
-| =surface0= | =#3d2b2b= | Raised surface, focused windows    |
-| =maroon=   | =#b5262a= | Primary accent, borders, highlights|
-| =red=      | =#d63d3d= | Urgent/indicator                   |
-| =rosewater=| =#f5c2a0= | Clock, selected items              |
-| =amber=    | =#d4a846= | Active items, memory bar           |
-| =text=     | =#e8d5cb= | Primary text                       |
+| Name       | Hex       | Role                                    |
+|------------+-----------+-----------------------------------------|
+| =bg=       | =#0a0a0a= | Background                              |
+| =surface0= | =#141414= | Raised surface                          |
+| =surface1= | =#1c1c1c= | Inactive borders                        |
+| =teal=     | =#4ecdc4= | Primary accent, focused border, prompts |
+| =amber=    | =#d4a520= | Secondary accent, gradient stop, modes  |
+| =red=      | =#c0392b= | Urgent / critical / fail                |
+| =text=     | =#d0d0d0= | Primary text                            |
 
 ** Packages
 
@@ -190,21 +201,25 @@ Managed declaratively per-user; all profiles inherit these.
 | =jq=, =socat=, =lnav= | Data/network/log tools           |
 | =nix-output-monitor= | Better nix build output            |
 
-*** Sway profile only (=home/wm/sway/=)
-Extra packages pulled in by the Sway home profile.
+*** Hyprland profile only (=home/wm/hyprland/=)
+Extra packages pulled in by the Hyprland home profile.
 
-| Package             | Purpose                          |
-|---------------------+----------------------------------|
-| =swaylock=, =swayidle= | Screen lock and idle daemon  |
-| =grim= + =slurp=   | Wayland screenshots              |
-| =wl-clipboard=      | Wayland clipboard                |
-| =wlr-randr=         | Wayland display management       |
-| =mako=              | Notification daemon              |
-| =pavucontrol=       | PulseAudio/PipeWire volume GUI   |
-| =playerctl=         | Media player control             |
-| =networkmanagerapplet= + =blueman= | Systray applets     |
-| =brightnessctl=     | Backlight control                |
-| =pass=              | Password manager (Wayland-safe)  |
+| Package                      | Purpose                          |
+|------------------------------+----------------------------------|
+| =hyprland=                   | Wayland compositor (flake-pinned, bleeding-edge) |
+| =hyprlock=                   | Wayland-native screen locker     |
+| =hypridle=                   | Idle daemon (lock + dpms)        |
+| =hyprpaper=                  | Wallpaper daemon                 |
+| =hyprpicker=, =hyprcursor=   | Colour picker, cursor theming    |
+| =grim= + =slurp=             | Wayland screenshots              |
+| =wl-clipboard=               | Wayland clipboard                |
+| =wlr-randr=                  | Wayland display management       |
+| =mako=                       | Notification daemon              |
+| =pavucontrol=                | PulseAudio/PipeWire volume GUI   |
+| =playerctl=                  | Media player control             |
+| =networkmanagerapplet= + =blueman= | Systray applets            |
+| =brightnessctl=              | Backlight control                |
+| =pass=                       | Password manager (Wayland-safe)  |
 
 ** Shared System Config
 

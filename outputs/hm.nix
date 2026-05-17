@@ -14,14 +14,12 @@ let
       modules = modules' ++ mods;
     };
 
-  mkXmonadHome = mkHome { mods = [ ../home/wm/xmonad ]; };
-  mkSwayHome   = mkHome { mods = [
-        ../home/wm/sway
-  ]; };
-  mkBspwmHome  = mkHome { mods = [ ../home/wm/bspwm ]; };
+  mkXmonadHome   = mkHome { mods = [ ../home/wm/xmonad ]; };
+  mkHyprlandHome = mkHome { mods = [ ../home/wm/hyprland ]; };
+  mkBspwmHome    = mkHome { mods = [ ../home/wm/bspwm ]; };
 in
 {
   xmonad        = mkXmonadHome;
-  sway          = mkSwayHome;
+  hyprland      = mkHyprlandHome;
   nixos-vm      = mkBspwmHome;
 }

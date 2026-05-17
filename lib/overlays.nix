@@ -30,6 +30,14 @@ let
 
     yazi = inputs.yazi.packages.${system}.default;
 
+    # Bleeding-edge Hyprland from the upstream flake. Overlaying here means
+    # both the NixOS module (`programs.hyprland.package`) and the home-manager
+    # module (`wayland.windowManager.hyprland.package`) automatically pick up
+    # the flake build, and `pkgs.hyprland` is the single source of truth.
+    hyprland = inputs.hyprland.packages.${system}.hyprland;
+    xdg-desktop-portal-hyprland =
+      inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
+
     treesitterGrammars = ts: ts.withPlugins (p: [
       p.tree-sitter-c
       p.tree-sitter-nix

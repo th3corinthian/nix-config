@@ -6,7 +6,12 @@
       "Bash(nix --extra-experimental-features 'nix-command flakes' eval --impure --expr '\\(import <nixpkgs> {}\\).swayfx.meta.description')",
       "Bash(nix --extra-experimental-features 'nix-command flakes' eval --impure --expr 'builtins.attrNames \\(import <nixpkgs> {}\\).swayfx')",
       "Bash(nix --extra-experimental-features 'nix-command flakes' flake check --no-build)",
-      "Bash(nix --extra-experimental-features 'nix-command flakes' eval --no-warn-dirty .#homeConfigurations.sway.activationPackage.drvPath)"
+      "Bash(nix --extra-experimental-features 'nix-command flakes' eval --no-warn-dirty .#homeConfigurations.sway.activationPackage.drvPath)",
+      "Bash(nix-instantiate --parse flake.nix)",
+      "Bash(nix-instantiate --parse system/wm/hyprland.nix)",
+      "Bash(nix-instantiate --parse home/wm/hyprland/default.nix)",
+      "Bash(nix-instantiate --parse home/programs/waybar/default.nix)",
+      "Bash(nix-instantiate --parse outputs/hm.nix)"
     ]
   }
 }

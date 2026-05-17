@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../wm/sway.nix
+    ../../wm/hyprland.nix
   ];
 
   boot = {
@@ -44,16 +44,16 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   environment.sessionVariables = {
-    # Vulkan renderer bypasses the GBM/EGLStreams conflict with NVIDIA entirely.
-    # Requires hardware.nvidia.modesetting.enable = true (already set above).
-    WLR_RENDERER              = "vulkan";
+    # NVIDIA + Hyprland (aquamarine backend, not wlroots — the old WLR_* vars
+    # no longer apply). Requires hardware.nvidia.modesetting.enable = true.
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    # NVIDIA's cursor plane has known issues under wlroots; render in software.
-    WLR_NO_HARDWARE_CURSORS   = "1";
-    # VA-API hardware decode via NVIDIA.
     LIBVA_DRIVER_NAME         = "nvidia";
+    # Direct NVDEC backend — avoids the libnvidia-egl-gbm shim issues.
+    NVD_BACKEND               = "direct";
     # Opt Electron/Chromium apps into native Wayland rendering.
     NIXOS_OZONE_WL            = "1";
+    # Force GBM allocator (works around aquamarine's EGLStream probe).
+    GBM_BACKEND               = "nvidia-drm";
   };
 
   environment.systemPackages = with pkgs; [

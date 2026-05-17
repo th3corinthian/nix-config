@@ -29,13 +29,11 @@ in
   programs.waybar = {
     enable = true;
 
-    # Run as a systemd user service tied to sway-session.target so it survives
-    # sway reloads and starts reliably at login. The previous `bars` block in
-    # the sway config relied on bare `waybar` being on PATH at greetd-launch
-    # time, which it wasn't — hence the missing bar at login.
+    # Run as a systemd user service tied to hyprland-session.target so it
+    # survives hyprctl reload and starts reliably at login.
     systemd = {
       enable  = true;
-      targets = [ "sway-session.target" ];
+      targets = [ "hyprland-session.target" ];
     };
 
     settings = [{
@@ -50,8 +48,8 @@ in
       margin-right  = 10;
       margin-bottom = 0;
 
-      modules-left   = [ "sway/workspaces" "sway/mode" ];
-      modules-center = [ "sway/window" ];
+      modules-left   = [ "hyprland/workspaces" "hyprland/submap" ];
+      modules-center = [ "hyprland/window" ];
       modules-right  = [
         "cpu"
         "memory"
@@ -63,18 +61,19 @@ in
         "tray"
       ];
 
-      "sway/workspaces" = {
+      "hyprland/workspaces" = {
         disable-scroll = true;
         all-outputs    = true;
         format         = "{name}";
       };
 
-      "sway/mode" = {
+      "hyprland/submap" = {
         format = " {}";
       };
 
-      "sway/window" = {
+      "hyprland/window" = {
         max-length = 60;
+        separate-outputs = true;
       };
 
       clock = {

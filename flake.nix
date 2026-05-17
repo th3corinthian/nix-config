@@ -85,6 +85,13 @@
 
     yazi.url = "github:sxyazi/yazi";
 
+    # Hyprland — bleeding-edge Wayland compositor pulled straight from upstream
+    # so we don't lag behind the nixpkgs channel. The flake builds its own
+    # xdg-desktop-portal-hyprland too; we expose both via an overlay.
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+    };
+
   };
 
   outputs = inputs @ { self, nixpkgs, ... }:
