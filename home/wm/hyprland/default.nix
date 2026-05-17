@@ -68,7 +68,7 @@ in
 
     settings = {
       "$mod" = "SUPER";
-      "$term" = "${pkgs.alacritty}/bin/alacritty";
+      "$term" = "${pkgs.kitty}/bin/kitty";
       "$menu" = "rofi -show drun -show-icons";
 
       monitor = [ ",preferred,auto,1" ];
@@ -218,9 +218,9 @@ in
       ];
 
       windowrule = [
-        "float, class:^(pavucontrol)$"
-        "float, class:^(nm-connection-editor)$"
-        "float, class:^(blueman-manager)$"
+        "match:class ^(pavucontrol)$, float on"
+        "match:class ^(nm-connection-editor)$, float on"
+        "match:class ^(blueman-manager)$, float on"
       ];
     };
   };
@@ -230,7 +230,7 @@ in
   # which matches any monitor.
   xdg.configFile."hypr/hyprpaper.conf".text = ''
     preload = ${wallpaper}
-    wallpaper = , ${wallpaper}
+    wallpaper = ,${wallpaper}
     splash = false
   '';
 
