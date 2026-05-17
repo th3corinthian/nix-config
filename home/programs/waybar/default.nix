@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
-# Van Gogh Starry Night dark palette
+# Van Gogh Starry Night dark palette + xmobar-style accent colors per module.
+# Icons use pango <span> so only the glyph is tinted (like xmobar's <fc>...</fc>),
+# matching the layout in home/programs/xmobar/default.nix.
 let
   bg       = "#0a0a0a";
   surface0 = "#141414";
@@ -13,16 +15,40 @@ let
   blue     = "#4a7fa5";
   red      = "#c0392b";
   green    = "#5a8a3c";
+
+  # Per-module icon tints, mirroring the xmobar palette.
+  cpuIcon  = "#a9a1e1";
+  memIcon  = "#51afef";
+  tempIcon = "#cdb464";
+  netRx    = "#4db5bd";
+  netTx    = "#c678dd";
+  dateIcon = "#ecbe7b";
+  batIcon  = "#b1de76";
 in
 {
   programs.waybar = {
     enable = true;
 
+    # Run as a systemd user service tied to sway-session.target so it survives
+    # sway reloads and starts reliably at login. The previous `bars` block in
+    # the sway config relied on bare `waybar` being on PATH at greetd-launch
+    # time, which it wasn't — hence the missing bar at login.
+    systemd = {
+      enable  = true;
+      targets = [ "sway-session.target" ];
+    };
+
     settings = [{
       layer    = "top";
       position = "top";
-      height   = 24;
+      height   = 30;
       spacing  = 0;
+
+      # Margins create the "hover" gap between the bar and any tiled window.
+      margin-top    = 8;
+      margin-left   = 10;
+      margin-right  = 10;
+      margin-bottom = 0;
 
       modules-left   = [ "sway/workspaces" "sway/mode" ];
       modules-center = [ "sway/window" ];
@@ -32,6 +58,7 @@ in
         "temperature"
         "network"
         "bluetooth"
+        "battery"
         "clock"
         "tray"
       ];
@@ -51,47 +78,59 @@ in
       };
 
       clock = {
-        format         = "{:%H:%M}";
-        format-alt     = "{:%Y-%m-%d}";
+        format         = "<span color='${dateIcon}'></span>  {:%a %b %d %I:%M}";
+        format-alt     = "<span color='${dateIcon}'></span>  {:%Y-%m-%d}";
         tooltip-format = "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>";
       };
 
       cpu = {
-        format   = " {usage}%";
+        format   = "<span color='${cpuIcon}'></span>  {usage}%";
         tooltip  = false;
         interval = 2;
       };
 
       memory = {
-        format         = " {percentage}%";
+        format         = "<span color='${memIcon}'></span>  {percentage}%";
         tooltip-format = "{used:0.1f}G / {total:0.1f}G";
         interval       = 5;
       };
 
       temperature = {
         critical-threshold = 80;
-        format             = " {temperatureC}°C";
-        format-critical    = " {temperatureC}°C";
+        format             = "<span color='${tempIcon}'></span>  {temperatureC}°";
+        format-critical    = "<span color='${red}'></span>  {temperatureC}°";
       };
 
       network = {
-        format-wifi         = " {signalStrength}%";
-        format-ethernet     = "󰈀 {ipaddr}";
-        format-linked       = "󰈀";
-        format-disconnected = "󰖪";
+        format-wifi         = "<span color='${netRx}'></span>  {signalStrength}%";
+        format-ethernet     = "<span color='${netRx}'>󰈀</span>  {ipaddr}";
+        format-linked       = "<span color='${netRx}'>󰈀</span>";
+        format-disconnected = "<span color='${overlay0}'>󰖪</span>";
         tooltip-format-wifi     = "{essid} ({signalStrength}%)\n{ipaddr}/{cidr}";
         tooltip-format-ethernet = "{ifname}: {ipaddr}/{cidr}";
         on-click            = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
       };
 
       bluetooth = {
-        format           = " {status}";
-        format-connected = " {device_alias}";
-        format-disabled  = " off";
+        format           = "<span color='${teal}'></span>  {status}";
+        format-connected = "<span color='${teal}'></span>  {device_alias}";
+        format-disabled  = "<span color='${overlay0}'></span>  off";
         tooltip-format   = "{controller_alias}\n{num_connections} connected";
         tooltip-format-connected    = "{device_enumerate}";
         tooltip-format-enumerate-connected = "{device_alias}";
         on-click         = "${pkgs.blueman}/bin/blueman-manager";
+      };
+
+      battery = {
+        states = {
+          warning  = 25;
+          critical = 10;
+        };
+        format          = "<span color='${batIcon}'>{icon}</span>  {capacity}%";
+        format-charging = "<span color='${green}'></span>  {capacity}%";
+        format-plugged  = "<span color='${green}'></span>  {capacity}%";
+        format-icons    = [ "" "" "" "" "" ];
+        tooltip-format  = "{timeTo}";
       };
 
       tray = {
@@ -104,15 +143,23 @@ in
       * {
         border:        none;
         border-radius: 0;
-        font-family:   JetBrainsMono Nerd Font;
+        font-family:   "UbuntuMono Nerd Font", "UbuntuMono Nerd Font Mono", monospace;
         font-size:     12px;
         min-height:    0;
       }
 
+      /* Floating / "hover" bar: transparent window, opaque rounded pill inside. */
       window#waybar {
-        background-color: rgba(10, 10, 10, 0.97);
+        background-color: transparent;
         color:            ${text};
-        border-bottom:    1px solid ${surface1};
+      }
+
+      window#waybar > box {
+        background-color: rgba(10, 10, 10, 0.92);
+        border:           1px solid ${surface1};
+        border-radius:    10px;
+        padding:          0 6px;
+        margin:           0;
       }
 
       #workspaces {
@@ -131,6 +178,7 @@ in
       #workspaces button:hover {
         background-color: ${surface0};
         color:            ${text};
+        border-radius:    6px;
       }
 
       #workspaces button.focused {
@@ -159,31 +207,23 @@ in
       #temperature,
       #network,
       #bluetooth,
+      #battery,
       #clock,
       #tray {
         padding: 0 10px;
         color:   ${text};
       }
 
-      #cpu         { color: ${teal};    }
-      #memory      { color: ${yellow};  }
-      #temperature { color: ${green};   }
-      #network     { color: ${blue};    }
-      #bluetooth   { color: ${teal};    }
-      #clock       { color: ${text};    }
-
-      #temperature.critical {
-        color: ${red};
-      }
-
-      #network.disconnected {
-        color: ${overlay0};
-      }
+      #temperature.critical { color: ${red};      }
+      #network.disconnected { color: ${overlay0}; }
 
       #bluetooth.disabled,
       #bluetooth.off {
         color: ${overlay0};
       }
+
+      #battery.warning  { color: ${yellow}; }
+      #battery.critical { color: ${red};    }
 
       #tray {
         padding: 0 6px;

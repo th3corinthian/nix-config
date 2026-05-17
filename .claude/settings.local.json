@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E '\\\\.\\(nix|org|md|conf\\)$')",
+      "Bash(nix --extra-experimental-features 'nix-command flakes' eval --impure --expr 'builtins.attrNames \\(import <nixpkgs> {}\\).nerd-fonts')",
+      "Bash(nix --extra-experimental-features 'nix-command flakes' eval --impure --expr '\\(import <nixpkgs> {}\\).swayfx.meta.description')",
+      "Bash(nix --extra-experimental-features 'nix-command flakes' eval --impure --expr 'builtins.attrNames \\(import <nixpkgs> {}\\).swayfx')",
+      "Bash(nix --extra-experimental-features 'nix-command flakes' flake check --no-build)",
+      "Bash(nix --extra-experimental-features 'nix-command flakes' eval --no-warn-dirty .#homeConfigurations.sway.activationPackage.drvPath)"
+    ]
+  }
+}

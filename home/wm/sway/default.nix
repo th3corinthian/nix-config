@@ -55,7 +55,22 @@ in
 
   wayland.windowManager.sway = {
     enable = true;
+    package = pkgs.swayfx;
     wrapperFeatures.gtk = true;
+    # swayfx's GLES2 renderer can't init inside the Nix build sandbox (no DRM
+    # FD), so the home-manager config check fails. Skip it — sway/swayfx will
+    # still validate the config at actual startup.
+    checkConfig = false;
+
+    # swayfx-only knobs (corner_radius, blur, shadows). Stock sway will reject
+    # these, so they live in extraConfig rather than `config`.
+    extraConfig = ''
+      corner_radius 10
+      smart_corner_radius enable
+      default_dim_inactive 0.0
+      blur disable
+      shadows disable
+    '';
 
     config = {
       modifier = "Mod4";
@@ -63,13 +78,13 @@ in
       menu      = "rofi -show drun -show-icons";
 
       fonts = {
-        names = [ "JetBrainsMono Nerd Font" ];
+        names = [ "UbuntuMono Nerd Font" ];
         size  = 10.0;
       };
 
       gaps = {
         inner     = 8;
-        outer     = 4;
+        outer     = 6;
         smartGaps = true;
       };
 
@@ -225,7 +240,10 @@ in
         { command = "${pkgs.blueman}/bin/blueman-applet"; }
       ];
 
-      bars = [{ command = "waybar"; }];
+      # Empty — waybar is launched via systemd (sway-session.target) by
+      # programs.waybar, see ../../programs/waybar. Leaving a bar block here
+      # too would race the systemd unit and you'd get either zero or two bars.
+      bars = [ ];
     };
   };
 
@@ -237,7 +255,7 @@ in
       border-size       = 1;
       border-radius     = 6;
       text-color        = "#d0d0d0";
-      font              = "JetBrainsMono Nerd Font 10";
+      font              = "UbuntuMono Nerd Font 10";
       default-timeout   = 5000;
       max-visible       = 5;
       "urgency=high" = {

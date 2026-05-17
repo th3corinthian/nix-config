@@ -6,7 +6,8 @@
 
 let
   customFonts = with (pkgs.nerd-fonts); [
-    mononoki
+    ubuntu
+    ubuntu-mono
   ];
 
   #myfonts = pkgs.callPackage fonts/default.nix { inherit pkgs; };
@@ -266,10 +267,9 @@ in
     };
 
     defaultFonts = {
-      #monospace = [ "DejaVu Sans Mono" ];
-      monospace = [ "Mononoki Nerd Font Mono"  "Noto Color Emoji" ];
-      sansSerif = [ "Inter"                    "Noto Color Emoji" ];
-      serif     = [ "Inter"                    "Noto Color Emoji" ];
+      monospace = [ "UbuntuMono Nerd Font Mono" "Noto Color Emoji" ];
+      sansSerif = [ "Ubuntu Nerd Font"          "Noto Color Emoji" ];
+      serif     = [ "Ubuntu Nerd Font"          "Noto Color Emoji" ];
       emoji     = [ "Noto Color Emoji" ];
     };
 
@@ -279,10 +279,10 @@ in
       <fontconfig>
         <match target="pattern">
           <test qual="any" name="family">
-            <string>Mononoki Nerd Font Mono</string>
+            <string>UbuntuMono Nerd Font Mono</string>
           </test>
           <edit name="family" mode="assign" binding="strong">
-            <string>Mononoki Nerd Font Mono</string>
+            <string>UbuntuMono Nerd Font Mono</string>
           </edit>
           <edit name="spacing" mode="assign">
             <int>100</int>

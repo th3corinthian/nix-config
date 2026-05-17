@@ -26,7 +26,7 @@
           user = "greeter";
         };
         initial_session = {
-          command = "${pkgs.sway}/bin/sway";
+          command = "${pkgs.swayfx}/bin/sway";
           user = "corinthian";
         };
       };
@@ -35,6 +35,7 @@
 
   programs.sway = {
     enable = true;
+    package = pkgs.swayfx;
     wrapperFeatures.gtk = true;
     extraPackages = with pkgs; [
       swaylock
