@@ -53,7 +53,7 @@ in
     packages = hyprPkgs;
   };
 
-  programs.rofi.package = pkgs.rofi-wayland;
+  programs.rofi.package = pkgs.rofi;
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -120,11 +120,6 @@ in
           "fade, 1, 4, ease"
           "workspaces, 1, 4, ease, slide"
         ];
-      };
-
-      dwindle = {
-        pseudotile = true;
-        preserve_split = true;
       };
 
       input = {
@@ -222,7 +217,7 @@ in
         "$mod, mouse:273, resizewindow"
       ];
 
-      windowrulev2 = [
+      windowrule = [
         "float, class:^(pavucontrol)$"
         "float, class:^(nm-connection-editor)$"
         "float, class:^(blueman-manager)$"
