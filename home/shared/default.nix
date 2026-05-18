@@ -68,6 +68,13 @@ let
     godot
     blender
 
+    urh
+    gnuradio
+    sigdigger
+    inspectrum
+
+    srsran
+
     yazi
     p7zip
     poppler
